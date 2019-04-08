@@ -12,11 +12,19 @@ interface QuizDisplay {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  
+  errorCallingRestEndpoint = false;
 
   constructor(private quizSvc: QuizService) {
     //console.log(this.quizSvc.getQuizzes());
     // this.quizzes = this.quizSvc.getQuizzes();
   }
+  // some setup stuff
+  
+  title = 'quiz-editor';
+  myWidth = 250;
+  quizzes: QuizDisplay[] = [];
+  selectedQuiz: QuizDisplay = undefined;
 
   ngOnInit() {
     this.quizSvc.getQuizzes().subscribe(
@@ -29,16 +37,10 @@ export class AppComponent implements OnInit{
       }
       , (error) => {
         console.log(error)
+        this.errorCallingRestEndpoint = true;
       }
     );
   }
-
-  title = 'quiz-editor';
-  
-  myWidth = 250;
-
-  quizzes: QuizDisplay[] = [];
-  selectedQuiz: QuizDisplay = undefined;
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
