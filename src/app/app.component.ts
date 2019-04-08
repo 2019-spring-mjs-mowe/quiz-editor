@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; //OnInit is a lifecycle hook, once implemented, ngOnInit() must be implemented, ngOnDestroy() is closing option
 import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
@@ -11,11 +11,26 @@ interface QuizDisplay {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   constructor(private quizSvc: QuizService) {
-    //console.log(this.quizSvc.getQuizzes());
-    this.quizzes = this.quizSvc.getQuizzes();
+    //this.quizzes = this.quizSvc.getQuizzes();
+
+  }
+
+  ngOnInit() {
+    //make call to the quiz service, which is calling a web service
+    this.quizSvc.getQuizzes().subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    //Observables: is nothing, until someone subscribe to it, then which it will give results
+    //subscribe() is key to getting it to do something
+    
   }
 
   title = 'quiz-editor';
