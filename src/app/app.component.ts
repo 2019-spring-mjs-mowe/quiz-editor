@@ -69,4 +69,34 @@ export class AppComponent implements OnInit{
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
   }
+
+  jsPromisesOne() {
+    const x = this.quizSvc.getNumberPromise(true);
+    console.log(x);
+
+    x.then(
+      n => {
+          console.log(n);
+      }
+    ).catch (
+      e => console.log(e)
+    );
+  }
+
+  async jsPromisesTwo() {
+    //async/await
+    
+    try {
+      const x = await this.quizSvc.getNumberPromise(true);
+      console.log(x);
+      const y = await this.quizSvc.getNumberPromise(true);
+    }
+
+    catch(e) {
+      console.log(e);
+    }
+
+  }
+
+
 }

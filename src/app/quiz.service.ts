@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { reject } from 'q';
 
 
 @Injectable({
@@ -26,6 +27,15 @@ export class QuizService {
     //   , numberOfQuestions: x.numberQuestions
     // }));
 
+   
+  }
 
+  
+  getNumberPromise(doYouWantMeToSucceed: boolean) {
+    let p = new Promise<number> (
+      (resolve, reject) => doYouWantMeToSucceed ? resolve(42) : reject("You got rejected")
+     
+    )
+      return p;
   }
 }
