@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     //console.log(this.quizSvc.getQuizzes());
     //this.quizzes = this.quizSvc.getQuizzes();
   }
-  errotCallingRestEndpoint = false;
+  errorCallingRestEndpoint = false;
   ngOnInit() {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
       }
       , (error) => {
         console.log(error);
-        this.errotCallingRestEndpoint = true;
+        this.errorCallingRestEndpoint = true;
       }
     );
   }
