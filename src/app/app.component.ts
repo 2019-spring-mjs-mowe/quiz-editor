@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuizVBService } from './quiz-vb.service';
 
 interface QuizDisplay {
@@ -11,11 +11,22 @@ interface QuizDisplay {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   constructor(private quizSvx:QuizVBService) {
     // console.log(this.quizSvx.getQuizzes());
-    this.quizzes = this.quizSvx.getQuizzes();
+    // this.quizzes = this.quizSvx.getQuizzes();
+  }
+
+  ngOnInit() {
+    this.quizSvx.getQuizzes().subscribe(
+      (data) => {
+        console.log(data);
+      }
+      , (error) => {
+       console.log(error);
+      }
+    );
   }
 
   title = 'quiz-editor';
