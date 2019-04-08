@@ -87,8 +87,7 @@ export class AppComponent implements OnInit{
     //async/await
     
     try {
-      const x = await this.quizSvc.getNumberPromise(true);
-      console.log(x);
+      const x = await this.quizSvc.getNumberPromise(true);      
       const y = await this.quizSvc.getNumberPromise(true);
     }
 
