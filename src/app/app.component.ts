@@ -17,14 +17,19 @@ export class AppComponent implements OnInit {
     // console.log(this.quizSvx.getQuizzes());
     // this.quizzes = this.quizSvx.getQuizzes();
   }
-
+  errorCallingRestEndPoint = false;
   ngOnInit() {
     this.quizSvx.getQuizzes().subscribe(
       (data) => {
         console.log(data);
+        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+          name: x.name
+          , numberOfQuestion: x.numberOfQuestion
+        }));
       }
       , (error) => {
        console.log(error);
+       this.errorCallingRestEndPoint = true;
       }
     );
   }

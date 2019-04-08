@@ -1,5 +1,10 @@
 <div class="container">
-  <div class="row">
+  <div  class="row" *ngIf="errorCallingRestEndPoint">
+    <div class="col-md-12">
+      <h2>There Is error</h2>
+    </div>
+  </div>
+  <div class="row" *ngIf="!errorCallingRestEndPoint">
     <div class="col-md-4">
       <h2>Quiz List</h2>
       <br>
@@ -25,6 +30,8 @@
         </a>
       </div>
     </div>
+    <br>
+    <br>
     <div class="col-md-8">
       <h2>Quiz Details</h2>
       <div *ngIf="selectedQuiz">
