@@ -8,14 +8,14 @@
             <br>
             <br>
             <div class="list-group">
-                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                <button class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                     *ngFor="let quiz of quizzes"
                     (click)="setSelectedQuiz(quiz)"
                     [class.active]="selectedQuiz == quiz">
                     {{ quiz.name }}
                     <span class="badge badge-secondary"
                         [class.bg-danger]='quiz.numberOfQuestions == 0'>{{ quiz.numberOfQuestions }}</span>
-                </div>
+                </button>
             </div>
         </div>
         <div class="col-md-8">
