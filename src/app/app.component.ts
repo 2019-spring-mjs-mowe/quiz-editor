@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
@@ -11,16 +11,26 @@ interface QuizDisplay {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   constructor(private quizSvc: QuizService) {
     //console.log(this.quizSvc.getQuizzes());
-    this.quizzes = this.quizSvc.getQuizzes();
+    //this.quizzes = this.quizSvc.getQuizzes();
+  }
+
+  ngOnInit() {
+    this.quizSvc.getQuizzes().subscribe(
+      (data) => {
+        console.log(data);
+      }
+      , (error) => {
+        console.log(error);
+      }
+    );
   }
 
   title = 'quiz-editor';
-  
-  myWidth = 250;
+  //myWidth = 250;
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
@@ -29,17 +39,17 @@ export class AppComponent {
     this.selectedQuiz = q;
   }
 
-  get titleColor() {
-    return this.myWidth > 250 ? "pink" : "black";
-  }  
+  // get titleColor() {
+  //   return this.myWidth > 250 ? "pink" : "black";
+  // }  
 
-  increaseWidth = () => {
-    this.myWidth *= 1.5;
-  }
+  // increaseWidth = () => {
+  //   this.myWidth *= 1.5;
+  // }
 
-  get listBackgroundColorDanger() {
-    return this.myWidth > 250 ? true : false;
-  }
+  // get listBackgroundColorDanger() {
+  //   return this.myWidth > 250 ? true : false;
+  // }
 
   addNewQuiz() {
 
