@@ -19,4 +19,11 @@ export class QuizVBService {
   //     , numberOfQuestion: x.numberOfQuestion
   //   }));
   }
+
+  getNumberPromise(doYouwantMeToSucced: boolean) {
+    let p = new Promise<number> (
+      (resolve, reject) => doYouwantMeToSucced ? resolve(42) : reject("You Got Problem")
+    );
+    return p;
+  }
 }

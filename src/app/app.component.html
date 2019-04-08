@@ -9,24 +9,25 @@
       <h2>Quiz List</h2>
       <br>
       <button class="btn btn-outline-primary" (click)="addNewQuiz()">Add New Quiz</button>
+      <button class="btn btn-link btn-sm" (click) = "jsPromisesOne()">Promise 1</button>
+      <button class="btn btn-link btn-sm" (click) = "jsPromisesTwo()">Promise 2</button>
+      <button class="btn btn-link btn-sm" (click) = "jsPromisesThree()">Promise 3</button>
       <br>
       <br>
       <div class="list-group">
         <a 
-        href="#"
-        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-         *ngFor="let q of quizzes"
-         (click)=setSelectedQuiz(q)
-         [class.active]="selectedQuiz === q">
+          href="#"
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+          *ngFor="let q of quizzes"
+          (click)=setSelectedQuiz(q)
+          [class.active]="selectedQuiz === q">
           {{ q.name }}
-          <br>
-          
+          <!-- <br> -->
           <span
             class="badge badge-secondary"
-            [class.bg-danger]="q.numberOfQuestion === 0">
-              {{ q.numberOfQuestion }}
+            [class.bg-danger]="q.numberOfQuestions === 0">
+              {{ q.numberOfQuestions }}
           </span>
-          
         </a>
       </div>
     </div>
