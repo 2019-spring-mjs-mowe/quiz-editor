@@ -35,4 +35,8 @@ export class QuizService {
   getNumberViaPromise(succeed: boolean) {
     return new Promise<number>((resolve, reject) => succeed ? resolve(15815) : reject("Issue"));
   }
+
+  getNumberViaPromiseSlow(succeed: boolean) {
+    setTimeout(() => {return new Promise<number>((resolve, reject) => succeed ? resolve(15815) : reject("Issue"))}, 2000);
+  }
 }

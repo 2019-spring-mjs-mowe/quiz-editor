@@ -63,10 +63,26 @@ export class AppComponent implements OnInit {
       
       let y = await this.quizSvc.getNumberViaPromise(true);
       console.log(y);
-      
     } catch(error) {
       console.log(error);
+    }
+  }
+
+  async promise3() {
+    // async/await
+    try {
+      let x = this.quizSvc.getNumberViaPromise(false);
+      console.log(x);
       
+      let y = this.quizSvc.getNumberViaPromise(true);
+      console.log(y);
+
+      // let results = await Promise.all([x, y]);
+      let results2 = await Promise.race([x, y]);
+      // console.log(results);
+      console.log(results2);
+    } catch(error) {
+      console.log(error);
     }
   }
 }
