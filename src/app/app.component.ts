@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
+  [x: string]: any;
   name: string;
   numberOfQuestions: number;
 }
@@ -17,19 +18,21 @@ export class AppComponent implements OnInit {
     // throw new Error("Method not implemented.");
     this.quizSvc.getQuizzes().subscribe(
     data => {
-      this.quizzes = data;
-      console.log(data);
+      this.quizzes = (<QuizDisplay[]> data).map(x => ({name: x.name, numberOfQuestions: x.numberQuestions}));
+      // console.log(data);
     }, error => {
       console.log(error);
+      this.errorDuringCall = true;
     });
   }
 
   title = 'quiz-editor';
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
+  errorDuringCall = false;
 
   constructor(private quizSvc: QuizService) {
-    this.quizzes = this.quizSvc.getQuizzes();
+    // this.quizzes = this.quizSvc.getQuizzes();
   }
 
   setSelectedQuiz(quiz: QuizDisplay) {
