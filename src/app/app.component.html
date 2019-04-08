@@ -6,7 +6,8 @@
       <br>
       <br>
       <div class="list-group">
-        <div 
+        <a
+          href="#" 
           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
           *ngFor="let q of quizzes"
           (click)="setSelectedQuiz(q)"
@@ -17,7 +18,7 @@
               [class.bg-danger]="q.numberOfQuestions === 0">
                 {{ q.numberOfQuestions }}
             </span>
-        </div>
+        </a>
       </div>
     </div>
     <div class="col-md-8">
