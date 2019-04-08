@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
@@ -12,7 +12,18 @@ interface QuizDisplay {
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+  ngOnInit(): void {
+    // throw new Error("Method not implemented.");
+    this.quizSvc.getQuizzes().subscribe(
+    data => {
+      this.quizzes = data;
+      console.log(data);
+    }, error => {
+      console.log(error);
+    });
+  }
+
   title = 'quiz-editor';
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
