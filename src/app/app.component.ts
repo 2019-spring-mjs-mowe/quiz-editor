@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<QuizDisplay[]>data).map(x=> ({
+        this.quizzes = (<QuizDisplay[]>data).map(x => ({
           name: x.name
           , numberOfQuestions: x.numberQuestions
         }));
@@ -66,5 +66,53 @@ export class AppComponent implements OnInit {
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
+  }
+
+  jsPromisesOne() {
+    const x = this.quizSvc.getNumberPromise(false);
+    console.log(x);
+
+    x.then(
+      n => {
+        console.log(n);
+        const y = this.quizSvc.getNumberPromise(true);
+        y.then( x => console.log(x)).catch( e => console.log(e));
+      }
+    ).catch(
+      e => {
+        console.log(e);
+      }
+    );
+
+  }
+
+  async jsPromisesTwo() {
+    //async await
+    try {
+      const x = await this.quizSvc.getNumberPromise(true);
+      console.log(x);
+      const y = await this.quizSvc.getNumberPromise(false);
+      console.log(x);
+    }
+    catch(e) {
+      console.log(e);
+    }
+  }
+
+  async jsPromisesThree() {
+    //async await
+    try {
+      const x = this.quizSvc.getNumberPromise(true);
+      console.log(x);
+      const y = this.quizSvc.getNumberPromise(true);
+      console.log(x);
+
+      //const results = await Promise.all([x, y]);
+      const results = await Promise.race([x, y]);
+      console.log(results);
+    }
+    catch(e) {
+      console.log(e);
+    }
   }
 }

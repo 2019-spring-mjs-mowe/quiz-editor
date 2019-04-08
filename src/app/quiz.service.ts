@@ -22,4 +22,12 @@ export class QuizService {
     //   , numberOfQuestions: x.numberQuestions
     // }));
   }
+
+  getNumberPromise(doYouWantMeToSucceed: boolean) {
+    let p = new Promise<number> (
+      (resolve, reject) => doYouWantMeToSucceed ? resolve(42) : reject(`You got problems!`)
+    );
+    return p;
+  }
+
 }
