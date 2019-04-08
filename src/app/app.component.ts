@@ -18,14 +18,21 @@ export class AppComponent implements OnInit {
     //this.quizzes = this.quizSvc.getQuizzes();
   }
 
+  errorCallingRestEndpoint = false;
+
   ngOnInit() {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
+        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+          name: x.name
+          , numberOfQuestions: x.numberQuestions
+        }));
       }
 
       , (error) => {
         console.log(error);
+        this.errorCallingRestEndpoint = true;
       }
     );
   }
