@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuizService } from './quiz.service';
+import { errorHandler } from '@angular/platform-browser/src/browser';
 
 interface QuizDisplay {
   name: string;
@@ -11,11 +12,22 @@ interface QuizDisplay {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   constructor(private quizSvc: QuizService) {
     //console.log(this.quizSvc.getQuizzes());
-    this.quizzes = this.quizSvc.getQuizzes();
+    //this.quizzes = this.quizSvc.getQuizzes();
+  }
+
+  ngOnInit() {
+    this.quizSvc.getQuizzes().subscribe(
+        (data) => {
+            console.log(data);
+        }
+        , (error) => {
+            console.log(error);
+        }
+    );
   }
 
   title = 'quiz-editor';
