@@ -30,7 +30,8 @@
         <div class="card">
           <div class="card-header">General</div>
           <div class="card-body">
-            <input type="text" [(ngModel)]="selectedQuiz.name">
+            <label for="quizNameInput">Name:&nbsp;</label>
+            <input type="text" id="quizNameInput" [(ngModel)]="selectedQuiz.name">
           </div>
         </div>
         <br>
