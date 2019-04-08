@@ -22,13 +22,19 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.quizSvc.getQuizzes().subscribe(
         (data) => {
-            console.log(data);
+            this.quizzes = (<QuizDisplay[]>data).map(x=>({
+                name: x.name,
+                numberOfQuestions:  x.numberQuestions
+            }));
         }
         , (error) => {
             console.log(error);
+            this.errorCallingRestEndpoint = true;
         }
     );
   }
+
+  errorCallingRestEndpoint = false;
 
   title = 'quiz-editor';
   
