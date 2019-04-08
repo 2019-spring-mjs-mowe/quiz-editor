@@ -18,14 +18,21 @@ export class AppComponent implements OnInit {
 
   }
 
+  errorCallingRestEndpoint = false;
+
   ngOnInit() {
     //make call to the quiz service, which is calling a web service
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
+        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+          name: x.name,
+          numberOfQuestions: x.numberQuestions
+        })); //Don't forget, when using a lambda to an object, use an extra set of parenthesis
       },
       (error) => {
         console.log(error);
+        this.errorCallingRestEndpoint = true;
       }
     );
     //Observables: is nothing, until someone subscribe to it, then which it will give results
