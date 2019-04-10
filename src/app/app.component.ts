@@ -20,11 +20,12 @@ export class AppComponent implements OnInit {
 
   errorCallingRestEndpoint = false;
 
+  // angular lifecycle (prefer not to do these things in the constructor, so we do it here)
   ngOnInit() {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+        this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , numberOfQuestions: x.numberQuestions
         }));
