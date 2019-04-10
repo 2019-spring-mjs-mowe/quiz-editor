@@ -55,7 +55,7 @@
               [(ngModel)]="question.name"
               class="form-control"
               >
-              <button class="btn btn-outline-danger">Remove</button>
+              <button class="btn btn-outline-danger"(click)="removeQuestion(question)">Remove</button>
               <br><br>
             </div>
           </div>
@@ -64,7 +64,7 @@
         <div class="card">
           <div class="card-header">Other</div>
           <div class="card-body">
-            <button class="btn btn-outline-danger" (click)="removeQuestion">Delete This Quiz</button>
+            <button class="btn btn-outline-danger">Delete This Quiz</button>
           </div>
         </div>    
       </div>
