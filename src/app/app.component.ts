@@ -3,7 +3,11 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  numberOfQuestions: number;
+  questions: QuestionDisplay[];
+}
+
+interface QuestionDisplay {
+  name: string;
 }
 
 @Component({
@@ -14,18 +18,19 @@ interface QuizDisplay {
 export class AppComponent implements OnInit {
 
   constructor(private quizSvc: QuizService) {
-    // console.log(this.quizSvc.getQuizzes());
-    // this.quizzes = this.quizSvc.getQuizzes();
+    //console.log(this.quizSvc.getQuizzes());
+    //this.quizzes = this.quizSvc.getQuizzes();
   }
 
   errorCallingRestEndpoint = false;
+
   ngOnInit() {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+        this.quizzes = (<any[]> data).map(x => ({
           name: x.name
-          , numberOfQuestions: x.numberQuestions
+          , questions: x.questions
         }));
       }
 
@@ -33,7 +38,7 @@ export class AppComponent implements OnInit {
         console.log(error);
         this.errorCallingRestEndpoint = true;
       }
-    )
+    );
   }
 
   title = 'quiz-editor';
@@ -63,23 +68,31 @@ export class AppComponent implements OnInit {
 
     let newQuiz = { 
       name: 'New Untitled Quiz'
-      , numberOfQuestions: 0 
+      , numberOfQuestions: 0
+      , questions: []
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
   }
 
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , { name: "New Untitled Questions" }
+    ];
+  }
+
   jsPromisesOne() {
     const x = this.quizSvc.getNumberPromise(true);
-    console.log(x);
+    console.log(x); // ? ? ? 
 
     x.then(
       n => {
-        console.log(n);
+        console.log(n); // ? ? ? 
 
         const y = this.quizSvc.getNumberPromise(false);
-        console.log(y);
+        console.log(y); // ? ? ?
 
         y.then(x => console.log(x)).catch(x => console.log(x));
       }
@@ -93,10 +106,9 @@ export class AppComponent implements OnInit {
 
   async jsPromisesTwo() {
     // async/await...
-
     try {
       const x = await this.quizSvc.getNumberPromise(true);
-      console.log(x);
+      console.log(x); // ? ? ?
 
       const y = await this.quizSvc.getNumberPromise(true);
       console.log(y);
@@ -109,21 +121,20 @@ export class AppComponent implements OnInit {
 
   async jsPromisesThree() {
     // async/await...
-
     try {
       const x = this.quizSvc.getNumberPromise(true);
-      console.log(x);
+      console.log(x); // ? ? ?
 
       const y = this.quizSvc.getNumberPromise(true);
       console.log(y);
 
-      // const results = await Promise.all([x, y]);
-      const results = await Promise.race([x, y]);
-      console.log(results);
+      const results = await Promise.all([x, y]);
+      //const results = await Promise.race([x, y]);
+      console.log(results); // ? ? ? 
     }
 
     catch(error) {
       console.log(error);
     }
-  }
+  }  
 }
