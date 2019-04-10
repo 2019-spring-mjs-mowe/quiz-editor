@@ -129,4 +129,11 @@ export class AppComponent implements OnInit {
       console.log(error);
     }
   }  
+
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , { name: "New Untitled Question" }
+    ];
+  }
 }
