@@ -53,10 +53,10 @@
               <div *ngFor="let question of selectedQuiz.questions" class="row">
                 <div class="col-md-9">
                   <input type="text" [(ngModel)]="question.name" class="form-control">
-                  &nbsp;
+                  <br>
+                </div>
+                  <div class="col-md-3">
                   <button class="btn btn-outline-danger" (click)="removeQuestion(question)">Remove</button>
-                  <br>
-                  <br>
                 </div>
               </div>
               <br>

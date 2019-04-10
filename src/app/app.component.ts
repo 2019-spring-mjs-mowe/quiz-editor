@@ -83,10 +83,8 @@ export class AppComponent implements OnInit {
     ];
   }
 
-  removeQuestion(question) {
-    this.selectedQuiz.questions = [
-      
-    ]
+  removeQuestion(q) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x !== q);
   }
 
   jsPromisesOne() {
