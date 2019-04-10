@@ -48,7 +48,8 @@
           <div class="card-header">Questions</div>
           <div class="card-body">
             <div *ngFor="let question of selectedQuiz.questions">
-              {{ question.name }}
+              <input type="text" [(ngModel)]="question.name" class="form-control">
+              <br>
             </div>
           </div>
         </div>
