@@ -3,7 +3,13 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  numberOfQuestions: number;
+  //numberOfQuestions: number;
+  questions: QuestionDisplay[];
+}
+
+interface QuestionDisplay {
+  name: string;
+
 }
 
 @Component({
@@ -27,7 +33,7 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
-          , numberOfQuestions: x.numberQuestions
+          , questions: x.questions
         }));
       }
 
@@ -39,8 +45,6 @@ export class AppComponent implements OnInit {
   }
 
   title = 'quiz-editor';
-  
-  myWidth = 250;
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
@@ -49,23 +53,10 @@ export class AppComponent implements OnInit {
     this.selectedQuiz = q;
   }
 
-  get titleColor() {
-    return this.myWidth > 250 ? "pink" : "black";
-  }  
-
-  increaseWidth = () => {
-    this.myWidth *= 1.5;
-  }
-
-  get listBackgroundColorDanger() {
-    return this.myWidth > 250 ? true : false;
-  }
-
   addNewQuiz() {
-
     let newQuiz = { 
       name: 'New Untitled Quiz'
-      , numberOfQuestions: 0 
+      ,questions: []
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
