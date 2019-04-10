@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
-          , numberOfQuestions: x.numberQuestions
+          , questions: x.questions
         }));
       }
 
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
   myWidth = 250;
 
   quizzes: QuizDisplay[] = [];
+  questions: QuestionDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
 
   setSelectedQuiz(q: QuizDisplay) {
@@ -68,11 +69,18 @@ export class AppComponent implements OnInit {
 
     let newQuiz = { 
       name: 'New Untitled Quiz'
-      , numberOfQuestions: 0 
+      , questions: [] 
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
+  }
+
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      ,{ name: 'New untitled question'}
+    ];
   }
 
   jsPromisesOne() {

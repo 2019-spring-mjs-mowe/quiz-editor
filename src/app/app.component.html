@@ -23,8 +23,8 @@
             {{ q.name }}
             <span 
               class="badge badge-secondary"
-              [class.bg-danger]="q.numberOfQuestions === 0">
-                {{ q.numberOfQuestions }}
+              [class.bg-danger]="q.questions.length === 0">
+                {{ q.questions.length }}
             </span>
         </a>
       </div>
@@ -47,7 +47,19 @@
         <div class="card">
           <div class="card-header">Questions</div>
           <div class="card-body">
-            Coming soon!
+            <button (click)="addNewQuestion()" class="btn btn-outline-success">Add New Question</button>
+            <br>
+            <br>
+            <div *ngFor="let question of selectedQuiz.questions" class="row">
+              <div class="col-md-9">
+                  <input type="text" [(ngModel)]="question.name" class="form-control">  
+              </div>
+              <br>
+              <br>
+              <div class="col-md-3">
+                  <button class="btn btn-outline-danger">Remove</button>
+              </div>              
+            </div>
           </div>
         </div>
         <br>
