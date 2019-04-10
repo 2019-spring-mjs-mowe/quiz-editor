@@ -24,10 +24,11 @@ export class AppComponent implements OnInit {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+        this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , numberOfQuestions: x.numberQuestions
-        }));
+        })
+      );
       }
 
       , (error) => {
