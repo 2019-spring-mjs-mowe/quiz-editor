@@ -50,11 +50,16 @@
               <button class="btn btn-outline-success" (click)="addNewQuestion()">Add New Question</button>
               <br>
               <br>
-              <label>Name</label>
+              <div *ngFor="let question of selectedQuiz.questions" class="row">
+                <div class="col-md-9">
+                  <input type="text" [(ngModel)]="question.name" class="form-control">
+                  &nbsp;
+                  <button class="btn btn-outline-danger" (click)="removeQuestion(question)">Remove</button>
+                  <br>
+                  <br>
+                </div>
+              </div>
               <br>
-              <input type="text" />
-              &nbsp;
-              <button class="btn btn-outline-danger">Remove</button>
             </div>
           </div>
           <br>

@@ -79,8 +79,14 @@ export class AppComponent implements OnInit {
   addNewQuestion() {
     this.selectedQuiz.questions = [
       ...this.selectedQuiz.questions
-      , { name: "New Untitled Questions" }
+      , { name: 'New Untitled Question' }
     ];
+  }
+
+  removeQuestion(question) {
+    this.selectedQuiz.questions = [
+      
+    ]
   }
 
   jsPromisesOne() {
