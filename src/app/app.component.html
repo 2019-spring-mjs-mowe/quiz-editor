@@ -29,7 +29,7 @@
         </a>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8" *ngIf="selectedQuiz">
       <div *ngIf="selectedQuiz">
         <br>
         <button class="btn btn-outline-success">Save</button>
@@ -47,7 +47,14 @@
         <div class="card">
           <div class="card-header">Questions</div>
           <div class="card-body">
-            Coming soon!
+            <button class="btn btn-outline-success" (click)="addNewQuestion()">Add New Question</button>
+            <br>
+            <br>
+            <label>Name</label>
+            <br>
+            <input type="text" [(ngModel)]="selectedQuizQuestions.name" />
+            &nbsp;
+            <button class="btn btn-outline-danger">Remove</button>
           </div>
         </div>
         <br>

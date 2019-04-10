@@ -4,6 +4,11 @@ import { QuizService } from './quiz.service';
 interface QuizDisplay {
   name: string;
   numberOfQuestions: number;
+  questions: QuestionDisplay[];
+}
+
+interface QuestionDisplay {
+  name: string;
 }
 
 @Component({
@@ -24,7 +29,7 @@ export class AppComponent implements OnInit {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+        this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , numberOfQuestions: x.numberQuestions
         }));
@@ -64,11 +69,19 @@ export class AppComponent implements OnInit {
 
     let newQuiz = { 
       name: 'New Untitled Quiz'
-      , numberOfQuestions: 0 
+      , numberOfQuestions: 0
+      , questions: []
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
+  }
+
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , { name: "New Untitled Questions" }
+    ];
   }
 
   jsPromisesOne() {
