@@ -10,12 +10,12 @@
             <button
                 class="btn btn-outline-primary"
                 (click)="addNewQuiz()">Add new quiz</button>
-                <button class="btn btn-link btn-sm"
+                <!-- <button class="btn btn-link btn-sm"
                     (click)="promise1()">JS Promise</button>
                 <button class="btn btn-link btn-sm"
                     (click)="promise2()">JS Promise 2</button>
                 <button class="btn btn-link btn-sm"
-                    (click)="promise3()">JS Promise 3</button>
+                    (click)="promise3()">JS Promise 3</button> -->
             <br>
             <br>
             <div class="list-group">
@@ -46,7 +46,26 @@
                 <br>
                 <div class="card">
                     <div class="card-header">Questions</div>
-                    <div class="card-body">coming soon</div>
+                    <div class="card-body">
+                        <button
+                            class="btn btn-outline-success"
+                            (click)="addNewQuestion()">Add new question</button>
+                        <br>
+                        <br>                        
+                    
+                        <div class="input-group" *ngFor="let question of selectedQuiz.questions">
+                            <input type="text"
+                                [(ngModel)]="question.name"
+                                class="form-control">
+                            <span class="input-group-btn">
+                                <button
+                                    class="btn btn-outline-danger"
+                                    (click)="removeQuestion(question)">Remove</button>
+                            </span>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <div class="card">

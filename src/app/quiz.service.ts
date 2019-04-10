@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { resolve } from 'url';
-import { reject } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +32,5 @@ export class QuizService {
 
   getNumberViaPromise(succeed: boolean) {
     return new Promise<number>((resolve, reject) => succeed ? resolve(15815) : reject("Issue"));
-  }
-
-  getNumberViaPromiseSlow(succeed: boolean) {
-    setTimeout(() => {return new Promise<number>((resolve, reject) => succeed ? resolve(15815) : reject("Issue"))}, 2000);
   }
 }

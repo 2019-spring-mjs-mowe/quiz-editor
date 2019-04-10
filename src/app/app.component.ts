@@ -5,6 +5,11 @@ interface QuizDisplay {
   [x: string]: any;
   name: string;
   numberOfQuestions: number;
+  questions: QuestionDisplay[];
+}
+
+interface QuestionDisplay {
+  name: string;
 }
 
 @Component({
@@ -18,7 +23,7 @@ export class AppComponent implements OnInit {
     // throw new Error("Method not implemented.");
     this.quizSvc.getQuizzes().subscribe(
     data => {
-      this.quizzes = (<QuizDisplay[]> data).map(x => ({name: x.name, numberOfQuestions: x.numberQuestions}));
+      this.quizzes = (<QuizDisplay[]> data).map(x => ({name: x.name, numberOfQuestions: x.numberQuestions, questions: x.questions}));
       // console.log(data);
     }, error => {
       console.log(error);
@@ -40,49 +45,19 @@ export class AppComponent implements OnInit {
   }
 
   addNewQuiz() {
-    let newQuiz = { name: 'Untitled Quiz', numberOfQuestions: 0 };
+    let newQuiz = { name: 'Untitled Quiz', numberOfQuestions: 0, questions: [] };
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
   }
 
-  promise1() {
-    let x = this.quizSvc.getNumberViaPromise(true);
-    x.then(data => {
-      console.log(data)
-    }).catch(error => {
-      console.log(error)
-    });
+  addNewQuestion() {
+    let newQuestion = { name: 'New question' };
+    this.selectedQuiz.questions = <QuestionDisplay[]> [...this.selectedQuiz.questions, newQuestion];
+    this.selectedQuiz.numberOfQuestions = this.selectedQuiz.questions.length;
   }
 
-  async promise2() {
-    // async/await
-    try {
-      let x = await this.quizSvc.getNumberViaPromise(false);
-      console.log(x);
-      
-      let y = await this.quizSvc.getNumberViaPromise(true);
-      console.log(y);
-    } catch(error) {
-      console.log(error);
-    }
-  }
-
-  async promise3() {
-    // async/await
-    try {
-      let x = this.quizSvc.getNumberViaPromise(false);
-      console.log(x);
-      
-      let y = this.quizSvc.getNumberViaPromise(true);
-      console.log(y);
-
-      // let results = await Promise.all([x, y]);
-      let results2 = await Promise.race([x, y]);
-      // console.log(results);
-      console.log(results2);
-    } catch(error) {
-      console.log(error);
-    }
+  removeQuestion(question) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x != question);
   }
 }
