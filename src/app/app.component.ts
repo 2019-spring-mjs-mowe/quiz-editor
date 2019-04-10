@@ -3,11 +3,7 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  questions: QuestionDisplay[];
-}
-
-interface QuestionDisplay {
-  name: string;
+  numberOfQuestions: number;
 }
 
 @Component({
@@ -28,7 +24,7 @@ export class AppComponent implements OnInit {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+        this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , numberOfQuestions: x.numberQuestions
         }));
@@ -64,6 +60,9 @@ export class AppComponent implements OnInit {
     return this.myWidth > 250 ? true : false;
   }
 
+  addNewQuestion() {
+    
+  }
   addNewQuiz() {
 
     let newQuiz = { 
