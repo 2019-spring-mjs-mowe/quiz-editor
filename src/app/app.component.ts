@@ -45,9 +45,9 @@ export class AppComponent implements OnInit {
   }
 
   title = 'quiz-editor';
-
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
+  questions: QuestionDisplay[] = [];
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
@@ -61,6 +61,18 @@ export class AppComponent implements OnInit {
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
+  }
+
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions, {name: 'New Untitled Question'}
+    ];
+  }
+
+  removeQuestion(question) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(
+      x => x != question
+    );
   }
 
   jsPromisesOne() {

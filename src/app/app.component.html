@@ -47,7 +47,15 @@
         <div class="card">
           <div class="card-header">Questions</div>
           <div class="card-body">
-            Coming soon!
+            <button class="btn btn-outline-success" (click)="addNewQuestion()">Add New Question</button>
+          </div>
+
+          <div class="input-group mb-3" *ngFor="let question of selectedQuiz.questions">
+            <input type="text" [(ngModel)]="question.name" class="form-control">
+            <div class="input-group-append">
+              <button class="btn btn-outline-danger" (click)="removeQuestion(question)">Remove</button>
+            </div>
+            <br />
           </div>
         </div>
         <br>
