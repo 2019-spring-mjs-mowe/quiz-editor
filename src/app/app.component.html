@@ -47,23 +47,24 @@
         <div class="card">
           <div class="card-header">Questions</div>
           <div class="card-body">
-          <div *ngFor="let q of selectedQuiz.questions">
-            <input
-            type="text"
-            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
-           
-            value="{{ q.name }}"
-            >
-            
-            <button class="btn btn-outline-danger">Remove</button>
-          </div>
+            <button class="btn btn-outline-primary" (click)="addNewQuestion()">Add new question</button>
+            <br><br>
+            <div *ngFor="let question of selectedQuiz.questions">
+              <input
+              type="text"
+              [(ngModel)]="question.name"
+              class="form-control"
+              >
+              <button class="btn btn-outline-danger">Remove</button>
+              <br><br>
+            </div>
           </div>
         </div>
         <br>
         <div class="card">
           <div class="card-header">Other</div>
           <div class="card-body">
-            <button class="btn btn-outline-danger">Delete This Quiz</button>
+            <button class="btn btn-outline-danger" (click)="removeQuestion">Delete This Quiz</button>
           </div>
         </div>    
       </div>

@@ -50,7 +50,6 @@ export class AppComponent implements OnInit {
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
-  questions: QuestionDisplay[] = [];
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
@@ -77,6 +76,18 @@ export class AppComponent implements OnInit {
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
+  }
+
+  addNewQuestion() {
+    let newQuestion = {
+      name: 'Brand new question'
+    };
+
+    this.selectedQuiz.questions = [...this.selectedQuiz.questions, newQuestion];
+  }
+
+  removeQuestion = () => {
+    
   }
 
   jsPromisesOne() {
