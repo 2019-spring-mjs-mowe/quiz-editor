@@ -3,7 +3,11 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  numberOfQuestions: number;
+  questions: QuestionDisplay[];
+}
+
+interface QuestionDisplay {
+  name: string;
 }
 
 @Component({
@@ -26,7 +30,7 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
-          , numberOfQuestions: x.numberQuestions
+          , questions: x.questions
         }));
       }
 
@@ -60,14 +64,11 @@ export class AppComponent implements OnInit {
     return this.myWidth > 250 ? true : false;
   }
 
-  addNewQuestion() {
-    
-  }
   addNewQuiz() {
 
     let newQuiz = { 
       name: 'New Untitled Quiz'
-      , numberOfQuestions: 0 
+      , questions: []
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
@@ -128,4 +129,15 @@ export class AppComponent implements OnInit {
       console.log(error);
     }
   }  
+
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , { name: "New Untitled Question" }
+    ];
+  }
+
+  removeQuestion(q) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x !== q);
+  }
 }
