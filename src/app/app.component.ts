@@ -3,8 +3,7 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  questtion: QuestionDisplay[];
-  // numberOfQuestions: number;
+  questions: QuestionDisplay[];
 }
 
 interface QuestionDisplay {
@@ -31,7 +30,7 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
-          , numberOfQuestions: x.numberQuestions
+          , questions: x.questions
         }));
       }
 
@@ -42,12 +41,25 @@ export class AppComponent implements OnInit {
     );
   }
 
+  removeQuestion(question) {
+    const x = this.selectedQuiz.questions.filter(x => x != question);
+    console.log(x);
+    this.selectedQuiz.questions = x;
+  }
+
+  get numberOfQuestion() {
+    return this.questions.length;
+  }
+
   title = 'quiz-editor';
   
   myWidth = 250;
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
+  selectedQuestion: QuestionDisplay = undefined;
+  questions: QuestionDisplay[] = [];
+
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
@@ -69,11 +81,24 @@ export class AppComponent implements OnInit {
 
     let newQuiz = { 
       name: 'New Untitled Quiz'
-      , numberOfQuestions: 0 
+      , questions: []
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
+  }
+
+  addNewQuestion() {
+    // this.selectedQuiz.question = [
+    //   ...this.selectedQuiz, this.selectedQuiz.question {
+    //     name: 'New Untitled Quistion'
+    //   } 
+    // ]
+    let newQustion = {
+      name: 'New Untitled Quistion'
+    };
+    this.selectedQuiz.questions = [ ...this.selectedQuiz.questions, newQustion];
+    this.selectedQuestion = newQustion;
   }
 
   jsPromisesOne() {

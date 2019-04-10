@@ -21,10 +21,13 @@
           (click)="setSelectedQuiz(q)"
           [class.active]="selectedQuiz === q">
             {{ q.name }}
+            <!-- <span [(ngModel)]="selectedQuestion.question.lenght">
+                {{ q.question }}
+            </span> -->
             <span 
               class="badge badge-secondary"
-              [class.bg-danger]="q.numberOfQuestions === 0">
-                {{ q.numberOfQuestions }}
+              [class.bg-danger]="q.questions.length === 0">
+                {{ q.questions.length }}
             </span>
         </a>
       </div>
@@ -47,8 +50,20 @@
         <div class="card">
           <div class="card-header">Questions</div>
           <div class="card-body">
-            Coming soon!
-          </div>
+              <button class="btn btn-outline-primary" (click)="addNewQuestion()">Add New Question</button>
+              <br>
+              <br>
+              <div href="#"
+                *ngFor="let n of selectedQuiz.questions">
+                <div class="input-group">
+                    <input type="text" class="form-control" [(ngModel)]="n.name">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-light bg-danger" type="button" id="button-addon2" (click)="removeQuestion(n)">Remove</button>
+                    </div>
+                </div>
+                <br>
+              </div>
+            </div>
         </div>
         <br>
         <div class="card">
