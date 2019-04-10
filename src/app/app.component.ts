@@ -83,6 +83,11 @@ export class AppComponent implements OnInit {
     ];
   }
 
+  removeQuestions(q) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x !== q);
+  }
+
+
   jsPromisesOne() {
     const x = this.quizSvc.getNumberPromise(true);
     console.log(x); // ? ? ? 
