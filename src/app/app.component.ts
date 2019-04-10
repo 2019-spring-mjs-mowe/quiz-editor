@@ -136,4 +136,8 @@ export class AppComponent implements OnInit {
       , { name: "New Untitled Question" }
     ];
   }
+
+  removeQuestion(q) {
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x !== q);
+  }
 }
