@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
-          , numberOfQuestions: x.numberQuestions
+          , numberOfQuestions: x.questions.length
           , questions: x.questions
         })
       );
@@ -53,6 +53,18 @@ export class AppComponent implements OnInit {
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
+  }
+
+  addNewQuestion() {
+    //update number of questions
+    let newQuestion: QuestionDisplay = {name: "New Untitled Question"};
+
+    this.selectedQuiz = {...this.selectedQuiz, questions: [...this.selectedQuiz.questions, newQuestion]}
+    
+  }
+
+  removeQuestion(q: QuestionDisplay) {
+    this.selectedQuiz = {...this.selectedQuiz, questions: this.selectedQuiz.questions.filter(x => x != q)};
   }
 
   get titleColor() {
