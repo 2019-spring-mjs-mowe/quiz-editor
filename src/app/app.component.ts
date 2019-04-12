@@ -3,13 +3,11 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  //numberOfQuestions: number;
   questions: QuestionDisplay[];
 }
 
 interface QuestionDisplay {
   name: string;
-
 }
 
 @Component({
@@ -20,8 +18,6 @@ interface QuestionDisplay {
 export class AppComponent implements OnInit {
 
   constructor(private quizSvc: QuizService) {
-    //console.log(this.quizSvc.getQuizzes());
-    //this.quizzes = this.quizSvc.getQuizzes();
   }
 
   errorCallingRestEndpoint = false;
@@ -31,9 +27,9 @@ export class AppComponent implements OnInit {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<any[]> data).map(x => ({
-          name: x.name
-          , questions: x.questions
+        this.quizzes = (<any[]> data).map(q => ({
+          name: q.name
+          , questions: q.questions
         }));
       }
 
