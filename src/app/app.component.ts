@@ -55,11 +55,11 @@ export class AppComponent implements OnInit {
 
   addNewQuestion() {
     let newQuestion: QuestionDisplay = {name: "New Untitled Question"};
-    this.selectedQuiz = {...this.selectedQuiz, questions: [...this.selectedQuiz.questions, newQuestion]};
+    this.selectedQuiz.questions = [...this.selectedQuiz.questions, newQuestion];
   }
 
   removeQuestion(q: QuestionDisplay) {
-    this.selectedQuiz = {...this.selectedQuiz, questions: this.selectedQuiz.questions.filter(x => x != q)};
+    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x != q);
   }
 
   get titleColor() {
