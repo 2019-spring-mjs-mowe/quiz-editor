@@ -90,6 +90,11 @@ export class AppComponent implements OnInit {
     }
   }
 
+  cancelDeleteQuiz() {
+    this.confirmingDelete = false;
+    this.deleteQuizButtonText = "Delete This Quiz";
+  }
+
   jsPromisesOne() {
     const x = this.quizSvc.getNumberPromise(true);
     console.log(x); // ? ? ? 

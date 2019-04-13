@@ -62,6 +62,13 @@
             >
               {{ deleteQuizButtonText }}
             </button>
+            <button 
+              *ngIf="confirmingDelete"
+              class="btn btn-link" 
+              (click)="cancelDeleteQuiz()"
+            >
+              Cancel
+            </button>
           </div>
         </div>    
       </div>
