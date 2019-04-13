@@ -71,8 +71,10 @@ export class AppComponent implements OnInit {
     this.selectedQuiz = newQuiz;
   }
 
-  deleteQuizButtonText = "Delete This Quiz";
   confirmingDelete = false;
+  get deleteQuizButtonText() {
+    return this.confirmingDelete ? "Yes, I'm sure I want to delete this quiz" : "Delete This Quiz";
+  }
 
   deleteQuiz(q) {
     if (this.confirmingDelete) {      
@@ -80,19 +82,16 @@ export class AppComponent implements OnInit {
       this.quizzes = this.quizzes.filter(x => x !== q);
       this.selectedQuiz = undefined;
       this.confirmingDelete = false;
-      this.deleteQuizButtonText = "Delete This Quiz"
     }
 
     else {
       this.confirmingDelete = true;
       // Change the text to confirmation text.
-      this.deleteQuizButtonText = "Yes, I'm sure I want to delete this quiz";
     }
   }
 
   cancelDeleteQuiz() {
     this.confirmingDelete = false;
-    this.deleteQuizButtonText = "Delete This Quiz";
   }
 
   jsPromisesOne() {
