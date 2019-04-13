@@ -54,7 +54,14 @@
         <div class="card">
           <div class="card-header">Other</div>
           <div class="card-body">
-            <button class="btn btn-outline-danger">Delete This Quiz</button>
+            <button 
+              class="btn" 
+              [class.btn-danger]="confirmingDelete" 
+              [class.btn-outline-danger]="!confirmingDelete" 
+              (click)="deleteQuiz(selectedQuiz)"
+            >
+              {{ deleteQuizButtonText }}
+            </button>
           </div>
         </div>    
       </div>

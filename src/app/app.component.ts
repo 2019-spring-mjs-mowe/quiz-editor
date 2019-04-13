@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<QuizDisplay[]> data).map(x => ({
+        this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , numberOfQuestions: x.numberQuestions
         }));
@@ -69,6 +69,25 @@ export class AppComponent implements OnInit {
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
+  }
+
+  deleteQuizButtonText = "Delete This Quiz";
+  confirmingDelete = false;
+
+  deleteQuiz(q) {
+    if (this.confirmingDelete) {      
+      // Delete the current quiz.
+      this.quizzes = this.quizzes.filter(x => x !== q);
+      this.selectedQuiz = undefined;
+      this.confirmingDelete = false;
+      this.deleteQuizButtonText = "Delete This Quiz"
+    }
+
+    else {
+      this.confirmingDelete = true;
+      // Change the text to confirmation text.
+      this.deleteQuizButtonText = "Yes, I'm sure I want to delete this quiz";
+    }
   }
 
   jsPromisesOne() {
