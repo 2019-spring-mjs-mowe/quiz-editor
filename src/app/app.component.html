@@ -49,8 +49,19 @@
           <div class="card-header">Questions</div>
           <div class="card-body">
             <button class="btn btn-outline-secondary" (click)="addNewQuestion()">Add a Question</button>
+            <br>
+            <br>
             <div *ngFor="let q of selectedQuiz.questions">
-              <div><input type="text" [(ngModel)]="q.name" class="form-control"><button class="btn btn-outline-danger" (click)="removeQuestion(q)">Remove</button></div>
+              <div class="row">
+                <div class="col-sm-8">
+                    <input type="text" [(ngModel)]="q.name" class="form-control">
+                </div>
+                <br>
+                <br>
+                <div class="col-sm-4">
+                    <button class="btn btn-outline-danger" (click)="removeQuestion(q)">Remove</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
