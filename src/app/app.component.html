@@ -67,7 +67,10 @@
         <div class="card">
           <div class="card-header">Other</div>
           <div class="card-body">
-            <button class="btn btn-outline-danger" (click)="deleteQuiz()">{{ deleteButtonText}}</button>
+            <button class="btn" 
+            [class.btn-outline-danger]="!confirmingDelete"
+            [class.btn-danger]="confirmingDelete"
+             (click)="deleteQuiz()">{{ deleteButtonText}}</button>
             &nbsp; <button class="btn btn-link" *ngIf="confirmingDelete" (click)="cancelDelete()">Cancel</button>
   
           </div>
