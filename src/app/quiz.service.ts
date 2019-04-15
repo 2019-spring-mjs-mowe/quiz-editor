@@ -11,6 +11,8 @@ export class QuizService {
   getQuizzes() {
     return this.builtInAngularHttpClient.get("https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Mystery%20Quiz");
 
+    return this.builtInAngularHttpClient.get("https://modern-js.azurewebsites.net/api/HttpTriggerJS1?code=8XD3vN3ehHLdZacBQJQhgUnNst9202gdd5VM3kWCytDkz2nXhia6kA==&name=Mystery%20Quiz");
+
     // Mocking up the data we will ultimately get from a 
     // REST endpoint, or web service call...
     // return [
@@ -21,6 +23,14 @@ export class QuizService {
     //   name: x.name
     //   , numberOfQuestions: x.numberQuestions
     // }));
+  }
+
+  getNumberPromise(doYouWantMeToSucceed: boolean) {
+    let p = new Promise<number> (
+      (resolve, reject) => doYouWantMeToSucceed ? resolve(42) : reject("You got problems!")
+    );
+
+    return p;
   }
 
   getNumberPromise(doYouWantMeToSucceed: boolean) {
