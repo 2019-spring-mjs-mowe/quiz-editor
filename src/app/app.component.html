@@ -1,99 +1,109 @@
 <div class="container">
-    <div class="row" *ngIf="errorCallingRestEndpoint">
-      <div class="col-md-12">
-        <h3>Quiz Editor D E A D . . . Try again later : - )</h3>
+  <div class="row" *ngIf="errorCallingRestEndpoint">
+    <div class="col-md-12">
+      <h3>Quiz Editor D E A D . . . Try again later : - )</h3>
+    </div>
+  </div>
+  <div class="row" *ngIf="!errorCallingRestEndpoint">
+    <div class="col-md-4">
+      <br>
+      <button class="btn btn-outline-primary" (click)="addNewQuiz()">Add New Quiz</button>
+      <button class="btn btn-link btn-sm" (click)="jsPromisesOne()">JS Promises 1</button>
+      <button class="btn btn-link btn-sm" (click)="jsPromisesTwo()">2</button>
+      <button class="btn btn-link btn-sm" (click)="jsPromisesThree()">3</button>
+      <br>
+      <br>
+      <div class="list-group">
+        <a
+          href="#" 
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+          *ngFor="let q of quizzes"
+          (click)="setSelectedQuiz(q)"
+          [class.active]="selectedQuiz === q">
+            {{ q.name }}
+            <span 
+              class="badge badge-secondary"
+              [class.bg-danger]="q.questions.length === 0">
+                {{ q.questions.length }}
+            </span>
+        </a>
       </div>
     </div>
-    <div class="row" *ngIf="!errorCallingRestEndpoint">
-      <div class="col-md-4">
+    <div class="col-md-8">
+      <div *ngIf="selectedQuiz">
         <br>
-        <button class="btn btn-outline-primary" (click)="addNewQuiz()">Add New Quiz</button>
-        <button class="btn btn-link btn-sm" (click)="jsPromisesOne()">JS Promises 1</button>
-        <button class="btn btn-link btn-sm" (click)="jsPromisesTwo()">2</button>
-        <button class="btn btn-link btn-sm" (click)="jsPromisesThree()">3</button>
+        <button class="btn btn-outline-success">Save</button>
+        <button class="btn btn-link">Cancel</button>
         <br>
         <br>
-        <div class="list-group">
-          <a
-            href="#" 
-            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
-            *ngFor="let q of quizzes"
-            (click)="setSelectedQuiz(q)"
-            [class.active]="selectedQuiz === q">
-              {{ q.name }}
-              <span 
-                class="badge badge-secondary"
-                [class.bg-danger]="q.questions.length === 0">
-                  {{ q.questions.length }}
-              </span>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-8">
-        <div *ngIf="selectedQuiz">
-          <br>
-          <button class="btn btn-outline-success">Save</button>
-          <button class="btn btn-link">Cancel</button>
-          <br>
-          <br>
-          <div class="card">
-            <div class="card-header">General</div>
-            <div class="card-body">
-              <label>Name</label>
-              <input type="text" [(ngModel)]="selectedQuiz.name" class="form-control">
-            </div>
+        <div class="card">
+          <div class="card-header">General</div>
+          <div class="card-body">
+            <label>Name</label>
+            <input type="text" [(ngModel)]="selectedQuiz.name" class="form-control">
           </div>
-          <br>
-          <div class="card">
-            <div class="card-header">Questions</div>
-            <div class="card-body">
-              <button class="btn btn-outline-success" (click)="addNewQuestion()">Add New Question</button>
-              <br>
-              <br>
-              <div *ngFor="let question of selectedQuiz.questions" class="row">
-                <div class="col-md-9">
-                  <input type="text" [(ngModel)]="question.name" class="form-control">
-                  <br>
-                </div>
-                  <div class="col-md-3">
-                  <button class="btn btn-outline-danger" (click)="removeQuestion(question)">Remove</button>
-                </div>
+        </div>
+        <br>
+        <div class="card">
+          <div class="card-header">Questions</div>
+          <div class="card-body">
+            <button 
+              class="btn btn-outline-primary"
+              (click)="addNewQuestion()"
+            >
+              Add New Question
+            </button>
+            <br>
+            <br>
+            <div class="row" *ngFor="let question of selectedQuiz.questions">
+              <div class="col-md-9">
+                <input type="text" class="form-control" [(ngModel)]="question.name">
               </div>
+              <div class="col-md-3">
+                <button 
+                  class="btn btn-link text-danger"
+                  (click)="removeQuestion(question)"
+                >Remove</button>
+              </div>
+              <br>
+              <br>
             </div>
           </div>
-          <br>
-          <div class="card">
-            <div class="card-header">Other</div>
-            <div class="card-body">
-              <button
-                class="btn btn-outline-danger"
-                (click)="deleteQuiz()">
-                { deleteButtonText }
-              </button>
-              &nbsp;
-              <button
-                class="btn btn-link"
-                *ngIf="confirmingDelete"
-                (click)="cancelDelete()"
-              >
-              </button>
-            </div>
-          </div>    
         </div>
-        <div *ngIf="!selectedQuiz">
-          <br>
-          <br>
-          <br>
-          <br>
-          <div class="card">
-            <div class="card-header">&nbsp;</div>
-            <div class="card-body">
-              <h5>Select or <button class="btn btn-outline-secondary" (click)="addNewQuiz()">Add a New Quiz</button> to get started...</h5>
-            </div>
+        <br>
+        <div class="card">
+          <div class="card-header">Other</div>
+          <div class="card-body">
+            <button 
+              class="btn btn-outline-danger"
+              (click)="deleteQuiz()"
+            >
+              {{ deleteButtonText }}
+            </button>
+            &nbsp;
+            <button 
+              class="btn btn-link"
+              *ngIf="confirmingDelete"
+              (click)="cancelDelete()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>    
+      </div>
+      <div *ngIf="!selectedQuiz">
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="card">
+          <div class="card-header">&nbsp;</div>
+          <div class="card-body">
+            <h5>Select or <button class="btn btn-outline-secondary" (click)="addNewQuiz()">Add a New Quiz</button> to get started...</h5>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  
+</div>
+
