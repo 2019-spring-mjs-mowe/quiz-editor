@@ -3,7 +3,8 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
-  questions: QuestionDisplay[];
+  // questions: QuestionDisplay[];
+  numberOfQuestions: number;
 }
 
 interface QuestionDisplay {
