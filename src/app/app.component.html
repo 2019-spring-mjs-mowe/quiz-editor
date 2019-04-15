@@ -47,12 +47,27 @@
         <div class="card">
           <div class="card-header">Questions</div>
           <div class="card-body">
-            <div class="row" *ngFor="let question of selectedQuiz.questions"></div>
-            <div class="col-md-9">
-              <input type="text" class="form-control" [(ngModel)]="question.name">
+            <button 
+              class="btn btn-outline-primary"
+              (click)="addNewQuestion()"
+            >
+              Add New Question
+            </button>
+            <br>
+            <br>
+            <div class="row" *ngFor="let question of selectedQuiz.questions">
+              <div class="col-md-9">
+                <input type="text" class="form-control" [(ngModel)]="question.name">
+              </div>
+              <div class="col-md-3">
+                <button 
+                  class="btn btn-link text-danger"
+                  (click)="removeQuestion(question)"
+                >Remove</button>
+              </div>
+              <br>
+              <br>
             </div>
-            <button class="btn btn-link text-danger"
-                    (click)="removeQuestion(question)">Remove</button>
           </div>
         </div>
         <br>

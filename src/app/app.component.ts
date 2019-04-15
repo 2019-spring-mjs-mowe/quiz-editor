@@ -30,10 +30,9 @@ export class AppComponent implements OnInit {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<any[]> data).map(q => ({
-          name: q.name
-          // take the questions array that comes back and assign
-          , questions: q.questions
+        this.quizzes = (<any[]> data).map(x => ({
+          name: x.name
+          , questions: x.questions
         }));
       }
 
@@ -67,7 +66,16 @@ export class AppComponent implements OnInit {
 
   removeQuestion(questionToDelete) {
     this.selectedQuiz.questions = 
-    this.selectedQuiz.questions.filter( x => x !== questionToDelete);
+      this.selectedQuiz.questions.filter(x => x !== questionToDelete);
+  }
+
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , {
+        name: "New Untitled Question"
+      }
+    ];
   }
 
   jsPromisesOne() {
