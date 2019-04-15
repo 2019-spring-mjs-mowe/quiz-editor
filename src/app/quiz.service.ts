@@ -33,11 +33,4 @@ export class QuizService {
     return p;
   }
 
-  getNumberPromise(doYouWantMeToSucceed: boolean) {
-    let p = new Promise<number> (
-      (resolve, reject) => doYouWantMeToSucceed ? resolve(42) : reject(`You got problems!`)
-    );
-    return p;
-  }
-
 }

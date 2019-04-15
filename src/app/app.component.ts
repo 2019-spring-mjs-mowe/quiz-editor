@@ -54,18 +54,6 @@ export class AppComponent implements OnInit {
     this.selectedQuiz = q;
   }
 
-  // get titleColor() {
-  //   return this.myWidth > 250 ? "pink" : "black";
-  // }  
-
-  // increaseWidth = () => {
-  //   this.myWidth *= 1.5;
-  // }
-
-  // get listBackgroundColorDanger() {
-  //   return this.myWidth > 250 ? true : false;
-  // }
-
   addNewQuiz() {
 
     let newQuiz = { 
@@ -75,6 +63,11 @@ export class AppComponent implements OnInit {
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
+  }
+
+  removeQuestion(questionToDelete) {
+    this.selectedQuiz.questions = 
+    this.selectedQuiz.questions.filter( x => x !== questionToDelete);
   }
 
   jsPromisesOne() {
