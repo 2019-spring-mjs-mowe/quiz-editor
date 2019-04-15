@@ -47,14 +47,30 @@
         <div class="card">
           <div class="card-header">Questions</div>
           <div class="card-body">
-            Coming soon!
+            <div class="row">
+              <div class="col-md-9" *ngFor="let qustion of selectedQuiz.questions">
+                {{ questions.name }}
+              </div>
+              <div class="col-md-3">
+                Remove
+              </div>
+            </div>
           </div>
         </div>
         <br>
         <div class="card">
           <div class="card-header">Other</div>
           <div class="card-body">
-            <button class="btn btn-outline-danger">Delete This Quiz</button>
+            <button 
+            class="btn btn-outline-danger"
+            (click)="deleteQuiz()"
+            >
+            {{ deleteButtonText }}
+            </button>
+            &nbsp;
+            <button class="">
+
+            </button>
           </div>
         </div>    
       </div>
