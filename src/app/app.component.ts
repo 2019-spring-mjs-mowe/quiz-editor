@@ -8,8 +8,6 @@ interface QuizDisplay {
 
 interface QuestionDisplay {
   name: string;
-  // numberOfQuestions: number;
-  questions: QuestionDisplay[];
 }
 
 @Component({
@@ -43,9 +41,6 @@ export class AppComponent implements OnInit {
     );
   }
 
-  title = 'quiz-editor';
-  //myWidth = 250;
-
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
 
@@ -54,7 +49,6 @@ export class AppComponent implements OnInit {
   }
 
   addNewQuiz() {
-
     let newQuiz = { 
       name: 'New Untitled Quiz'
       , questions: []
@@ -72,11 +66,23 @@ export class AppComponent implements OnInit {
   addNewQuestion() {
     this.selectedQuiz.questions = [
       ...this.selectedQuiz.questions
-      , {
-        name: "New Untitled Question"
-      }
+      , { name: "New Untitled Question" }
     ];
   }
+
+  confirmDelete = false;
+  deleteButtonText = "Delete this Quiz?";
+
+  deleteQuiz() {
+    this.confirmDelete = true;
+    this.deleteButtonText = "Yes, I want to delete this quiz.";
+  }
+
+  cancelDelete() {
+    this.confirmDelete = false;
+    this.deleteButtonText = "Delete this Quiz?";
+  }
+
 
   jsPromisesOne() {
     const x = this.quizSvc.getNumberPromise(true);

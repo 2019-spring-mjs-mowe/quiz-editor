@@ -34,8 +34,7 @@
         <br>
         <button class="btn btn-outline-success">Save</button>
         <button class="btn btn-link">Cancel</button>
-        <br>
-        <br>
+        <br><br>
         <div class="card">
           <div class="card-header">General</div>
           <div class="card-body">
@@ -65,8 +64,7 @@
                   (click)="removeQuestion(question)"
                 >Remove</button>
               </div>
-              <br>
-              <br>
+              <br><br>
             </div>
           </div>
         </div>
@@ -74,15 +72,17 @@
         <div class="card">
           <div class="card-header">Other</div>
           <div class="card-body">
-            <button class="btn btn-outline-danger">Delete This Quiz</button>
+            <button class="btn btn-outline-danger"
+                    (click)="deleteQuiz()"> {{ deleteButtonText }}</button>
+                    &nbsp;
+                    <button *ngIf="confirmDelete"
+                     class="btn btn-link"
+                     (click)="cancelDelete()">Cancel</button>
           </div>
         </div>    
       </div>
       <div *ngIf="!selectedQuiz">
-        <br>
-        <br>
-        <br>
-        <br>
+        <br><br><br><br>
         <div class="card">
           <div class="card-header">&nbsp;</div>
           <div class="card-body">
