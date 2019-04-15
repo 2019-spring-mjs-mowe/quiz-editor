@@ -64,10 +64,16 @@ export class AppComponent implements OnInit {
   }
 
   removeQuiz() {
-    this.confirmRemove = true;
-    this.removeQuizText = "Yes, remove quiz";
+    if (!this.confirmRemove) {
+      this.confirmRemove = true;
+      this.removeQuizText = "Yes, remove quiz";
+    } else {
+      this.quizzes = this.quizzes.filter(x => x != this.selectedQuiz);
+      this.selectedQuiz = undefined;
 
-      this.selectedQuiz = this.selectedQuiz.filter(x => x != this.selectedQuiz);
+      this.confirmRemove = false;
+      this.removeQuizText = "Remove quiz";
+    }
   }
 
   cancelRemove() {
