@@ -90,13 +90,14 @@ export class AppComponent implements OnInit {
   }
 
   confirmingDelete = false;
-  deleteButtonText = "Delete This Quiz";
+  get deleteButtonText() {
+    return this.confirmingDelete ? "Yes, I want to delete this quiz" : "Delete This Quiz";
+  } 
 
   deleteQuiz() {
 
     if (!this.confirmingDelete) {
       this.confirmingDelete = true;
-      this.deleteButtonText = "Yes, I want to delete this quiz";
     }
     else {
       // Actually delete the quiz.
@@ -105,13 +106,11 @@ export class AppComponent implements OnInit {
 
       // And get out of confirming delete mode.
       this.confirmingDelete = false;
-      this.deleteButtonText = "Delete This Quiz";
     }
   }
 
   cancelDelete() {
     this.confirmingDelete = false;
-    this.deleteButtonText = "Delete this Quiz";
   }
 
   jsPromisesOne() {
