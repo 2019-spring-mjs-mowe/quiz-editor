@@ -36,7 +36,10 @@ export class AppComponent implements OnInit {
   selectedQuiz: QuizDisplay = undefined;
   errorDuringCall = false;
   confirmRemove = false;
-  removeQuizText = "Remove quiz";
+  
+  get removeQuizText() {
+    return this.confirmRemove ? "Yes, remove quiz" : "Remove quiz";
+  }
 
   constructor(private quizSvc: QuizService) {
     // this.quizzes = this.quizSvc.getQuizzes();
@@ -66,18 +69,15 @@ export class AppComponent implements OnInit {
   removeQuiz() {
     if (!this.confirmRemove) {
       this.confirmRemove = true;
-      this.removeQuizText = "Yes, remove quiz";
     } else {
       this.quizzes = this.quizzes.filter(x => x != this.selectedQuiz);
       this.selectedQuiz = undefined;
 
       this.confirmRemove = false;
-      this.removeQuizText = "Remove quiz";
     }
   }
 
   cancelRemove() {
     this.confirmRemove = false;
-    this.removeQuizText = "Remove quiz";
   }
 }
