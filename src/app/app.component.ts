@@ -80,6 +80,15 @@ export class AppComponent implements OnInit {
       this.selectedQuiz.questions.filter(x => x !== questionToDelete);
   }
 
+  addNewQuestion() {
+    this.selectedQuiz.questions = [
+      ...this.selectedQuiz.questions
+      , {
+        name: "New Untitled Question"
+      }
+    ];
+  }
+
   jsPromisesOne() {
     const x = this.quizSvc.getNumberPromise(true);
     console.log(x); // ? ? ? 
