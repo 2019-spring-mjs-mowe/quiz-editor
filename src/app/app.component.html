@@ -72,14 +72,16 @@
         <div class="card">
           <div class="card-header">Other</div>
           <div class="card-body">
+              <button *ngIf="confirmDelete"
+              class="btn btn-link"
+              (click)="cancelDelete()"
+              style="width: 150px">Cancel</button>
+              &nbsp;
             <button class="btn"
             [class.btn-outline-danger]="!confirmDelete"
             [class.btn-danger]="confirmDelete"
                     (click)="deleteQuiz()"> {{ deleteButtonText }}</button>
-                    &nbsp;
-                    <button *ngIf="confirmDelete"
-                     class="btn btn-link"
-                     (click)="cancelDelete()">Cancel</button>
+          
           </div>
         </div>    
       </div>
