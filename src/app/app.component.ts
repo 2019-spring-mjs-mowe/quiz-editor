@@ -71,13 +71,14 @@ export class AppComponent implements OnInit {
   }
 
   confirmDelete = false;
-  deleteButtonText = "Delete this Quiz?";
+
+  get deleteButtonText() {
+    return this.confirmDelete ? "Yes, I want to delete this quiz." : "Delete this Quiz?";
+  }
 
   deleteQuiz() {
     if(!this.confirmDelete) {
-
       this.confirmDelete = true;
-      this.deleteButtonText = "Yes, I want to delete this quiz.";
     }
     else {
       // actually delete quiz 
@@ -85,13 +86,11 @@ export class AppComponent implements OnInit {
       this.selectedQuiz = undefined;
       //and get out of delete mode
       this.confirmDelete = false;
-      this.deleteButtonText = "Delete this Quiz?";
     }
   }
 
   cancelDelete() {
     this.confirmDelete = false;
-    this.deleteButtonText = "Delete this Quiz?";
   }
 
 
