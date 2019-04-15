@@ -3,6 +3,7 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
+  // numberQuestions: number;
   questions: QuestionDisplay[];
 }
 
@@ -30,7 +31,8 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
-          , numberOfQuestions: x.numberQuestions
+          // , numberQuestions: x.numberQuestions
+          , questions: x.questions
         }));
       }
 
@@ -68,7 +70,8 @@ export class AppComponent implements OnInit {
 
     let newQuiz = { 
       name: 'New Untitled Quiz'
-      , numberOfQuestions: 0 
+      // , numberQuestions: 0 
+      , questions: []
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
