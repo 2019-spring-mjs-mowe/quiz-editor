@@ -74,8 +74,19 @@ export class AppComponent implements OnInit {
   deleteButtonText = "Delete this Quiz?";
 
   deleteQuiz() {
-    this.confirmDelete = true;
-    this.deleteButtonText = "Yes, I want to delete this quiz.";
+    if(!this.confirmDelete) {
+
+      this.confirmDelete = true;
+      this.deleteButtonText = "Yes, I want to delete this quiz.";
+    }
+    else {
+      // actually delete quiz 
+      this.quizzes = this.quizzes.filter(x => x !== this.selectedQuiz);
+      this.selectedQuiz = undefined;
+      //and get out of delete mode
+      this.confirmDelete = false;
+      this.deleteButtonText = "Delete this Quiz?";
+    }
   }
 
   cancelDelete() {
