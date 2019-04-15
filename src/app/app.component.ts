@@ -8,6 +8,8 @@ interface QuizDisplay {
 
 interface QuestionDisplay {
   name: string;
+  // numberOfQuestions: number;
+  questions: QuestionDisplay[];
 }
 
 @Component({
@@ -28,9 +30,10 @@ export class AppComponent implements OnInit {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<any[]> data).map(x => ({
-          name: x.name
-          , numberOfQuestions: x.numberQuestions
+        this.quizzes = (<any[]> data).map(q => ({
+          name: q.name
+          // take the questions array that comes back and assign
+          , questions: q.questions
         }));
       }
 
@@ -68,7 +71,7 @@ export class AppComponent implements OnInit {
 
     let newQuiz = { 
       name: 'New Untitled Quiz'
-      , numberOfQuestions: 0 
+      , questions: []
     };
 
     this.quizzes = [...this.quizzes, newQuiz];

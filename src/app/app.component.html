@@ -23,8 +23,8 @@
             {{ q.name }}
             <span 
               class="badge badge-secondary"
-              [class.bg-danger]="q.numberOfQuestions === 0">
-                {{ q.numberOfQuestions }}
+              [class.bg-danger]="q.questions.length === 0">
+                {{ q.questions.length }}
             </span>
         </a>
       </div>
