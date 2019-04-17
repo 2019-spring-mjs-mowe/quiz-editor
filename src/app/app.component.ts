@@ -56,6 +56,8 @@ export class AppComponent implements OnInit {
     return progress;
   }
 
+  calculateNumberOfCompletedQuestions = () => this.selectedQuiz.questions.filter(x => x.name !== "New Untitled Question").length;
+
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
   }

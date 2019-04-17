@@ -48,7 +48,7 @@
         <div class="card">
           <div class="card-header">Questions</div>
           <div class="card-body">
-            <div><ngb-progressbar type="success" [value]="calculateProgress()"><br> <b>2 of 4</b>...</ngb-progressbar></div>
+            <div><ngb-progressbar type="success" [value]="calculateProgress()"><br> <b>{{ calculateNumberOfCompletedQuestions() }} of {{ selectedQuiz.questions.length }}</b>...</ngb-progressbar></div>
             <br>
             <br>
             <button class="btn btn-outline-secondary" (click)="addNewQuestion()">Add a Question</button>
