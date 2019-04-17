@@ -3,7 +3,9 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
+  originalName: string;
   questions: QuestionDisplay[];
+  originalQuestionsChecksum: string;
   markedForDelete: boolean;
 }
 
@@ -31,7 +33,9 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
+          , originalName: x.originalName
           , questions: x.questions
+          , originalQuestionsChecksum: x.questions.map(x =>x.name).join('~')
           , markedForDelete: false
         }));
       }
@@ -70,7 +74,9 @@ export class AppComponent implements OnInit {
 
     let newQuiz = { 
       name: 'New Untitled Quiz'
+      , originalName: 'New Untitled Quiz'
       , questions: []
+      , originalQuestionsChecksum: ''
       , markedForDelete: false
     };
 
@@ -93,7 +99,18 @@ export class AppComponent implements OnInit {
   }
 
   get numberOfDeletedQuizzes() {
-    return this.quizzes.filter(x => x.markedForDelete);
+    return this.quizzes.filter(x => x.markedForDelete).length;
+  }
+
+  get numberOfEditedName() {
+    return this.quizzes.filter(x => 
+      x.name != x.originalName
+      || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~')
+    ).length;
+  }
+
+  get numberOfAddQuizzes() {
+    return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length;
   }
 
   jsPromisesOne() {
