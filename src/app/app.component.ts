@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
           name: x.name
           , originalName: x.name
           , questions: x.questions
-          , originalQuestionsChecksum: x.questions(x=> x.name).join('~')
+          , originalQuestionsChecksum: x.questions.map(x=> x.name).join('~')
           , markedForDelete: false
         }));
       }
