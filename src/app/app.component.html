@@ -107,6 +107,11 @@
                   >
                 Mark for delete
               </label>
+              <br>
+              <br>
+              <!-- <ngb-datepicker #d></ngb-datepicker> -->
+              <input type="text"  ngbDatepicker #d="ngbDatepicker" />
+              <button class="btn " (click)="d.toggle()">Select Due Date</button>
             </div>
           </div>
         </div>    
