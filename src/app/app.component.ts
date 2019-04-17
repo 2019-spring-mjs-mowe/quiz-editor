@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from './quiz.service';
 
+
+
 interface QuizDisplay {
   name: string;
   originalName: string;
