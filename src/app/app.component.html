@@ -94,6 +94,11 @@
               </div>
               <br>
               <br>
+              <div class="col-md-3">
+                  RATE: <ngb-rating [(rate)]="question.rating"></ngb-rating>
+              </div>
+              <br>
+              <br>
             </div>
           </div>
         </div>
@@ -110,6 +115,26 @@
                     />
                   Mark For Delete
                 </label>
+            </div>
+            <form class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">Choose</button>
+                    </div>
+                  </div>
+                </div>
+            </form>
+            <br>
+            <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+                <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">my Quotes</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                  <button ngbDropdownItem>{{ firstQuote }}</button>
+                  <button ngbDropdownItem>{{ secondQuote }}</button>
+                </div>
+                <span></span>
             </div>
           </div>
         </div>    

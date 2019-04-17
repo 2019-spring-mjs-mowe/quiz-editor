@@ -11,7 +11,9 @@ interface QuizDisplay {
 
 interface QuestionDisplay {
   name: string;
+  rating: number;
 }
+
 
 @Component({
   selector: 'app-root',
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit {
           , originalName: x.originalName
           , questions: x.questions
           , originalQuestionsChecksum: x.questions.map(x =>x.name).join('~')
+          , currentRate: x.currentRate
           , markedForDelete: false
         }));
       }
@@ -53,6 +56,17 @@ export class AppComponent implements OnInit {
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
+
+  quoteOne = 'See Beyond What You Do not See.';
+  quoteTwo = 'A Truth Can Be Lie. A Lie Can Be A Truth';
+
+  get firstQuote(){
+    return this.quoteOne;
+  }
+
+  get secondQuote() {
+    return this.quoteTwo;
+  }
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
@@ -77,6 +91,7 @@ export class AppComponent implements OnInit {
       , originalName: 'New Untitled Quiz'
       , questions: []
       , originalQuestionsChecksum: ''
+      , currentRate: []
       , markedForDelete: false
     };
 
@@ -94,6 +109,7 @@ export class AppComponent implements OnInit {
       ...this.selectedQuiz.questions
       , {
         name: "New Untitled Question"
+        , rating: 3
       }
     ];
   }
