@@ -32,13 +32,25 @@
       <div *ngIf="selectedQuiz">
         <br>
         <button
-          class="btn btn-outline-success">
+          class="btn btn-outline-dark">
           Save Quizzes
           <span
             *ngIf="numberOfDeletedQuizzes > 0"
             class="badge badge-danger m1-2"
           >
           - {{ numberOfDeletedQuizzes }}
+          </span>
+          <span
+            *ngIf="numberOfAddedQuizzes > 0"
+            class="badge badge-success m1-2"
+          >
+          + {{ numberOfAddedQuizzes }}
+          </span>
+          <span
+            *ngIf="numberOfEditedQuizzes > 0"
+            class="badge badge-light m1-2"
+          >
+           * {{ numberOfEditedQuizzes }}
           </span>
         </button>
         <button class="btn btn-link">Cancel</button>
