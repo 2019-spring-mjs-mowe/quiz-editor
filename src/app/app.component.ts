@@ -4,6 +4,7 @@ import { QuizService } from './quiz.service';
 interface QuizDisplay {
   name: string;
   questions: QuestionDisplay[];
+  markedForDelete: boolean;
 }
 
 interface QuestionDisplay {
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , questions: x.questions
+          , markedForDelete: false
         }));
       }
 
@@ -70,6 +72,7 @@ export class AppComponent implements OnInit {
       name: 'New Untitled Quiz'
       , numberOfQuestions: 0
       , questions: []
+      , markedForDelete: false
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
@@ -94,11 +97,6 @@ export class AppComponent implements OnInit {
       this.confirmingDelete = false;
       this.deleteButtonText = "Delete This Quiz";
     }
-  }
-
-  cancelDelete() {
-    this.confirmingDelete = false;
-    this.deleteButtonText = "Delete This Quiz";
   }
 
   addNewQuestion() {
