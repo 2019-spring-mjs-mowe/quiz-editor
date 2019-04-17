@@ -32,11 +32,11 @@
     <div class="col-md-8">
       <div *ngIf="selectedQuiz">
         <br>
-        <button class="btn btn-outline-dark">
+        <button class="btn btn-outline-dark" >
           Save Quizzes 
-          &nbsp;<span class="badge badge-success">+ {{ numberOfAddedQuizzes }}</span> 
-          &nbsp;<span class="badge badge-danger">- {{ numberOfDeletedQuizzes }}</span> 
-          &nbsp;<span class="badge badge-light">* {{ numberOfEditedQuizzes }}</span> 
+          <span *ngIf="numberOfAddedQuizzes > 0" class="badge badge-success ml-1">+ {{ numberOfAddedQuizzes }}</span> 
+          <span *ngIf="numberOfDeletedQuizzes > 0" class="badge badge-danger ml-1">- {{ numberOfDeletedQuizzes }}</span> 
+          <span *ngIf="numberOfEditedQuizzes > 0" class="badge badge-light ml-1">* {{ numberOfEditedQuizzes }}</span> 
         </button>
         <button class="btn btn-link">Cancel</button>
         <br>
