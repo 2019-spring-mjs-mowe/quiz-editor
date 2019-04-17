@@ -72,6 +72,7 @@ export class AppComponent implements OnInit {
       , originalName: 'New Untitled Quiz'
       , numberOfQuestions: 0
       , questions: []
+      , originalQuestionsChecksum: ''
       , markedForDelete: true
     }
     this.quizzes = [...this.quizzes, newQuiz];
