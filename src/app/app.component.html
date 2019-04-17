@@ -54,7 +54,7 @@
                  <input class="form-control" [(ngModel)]="question.name" />
                </div>
                <div class="col-md-3">
-                 <button class="btn btn-link text-danger">
+                 <button (click)="removeQuestion(question)" class="btn btn-link text-danger">
                    Remove
                  </button>
                </div>
