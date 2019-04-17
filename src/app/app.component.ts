@@ -152,9 +152,16 @@ export class AppComponent implements OnInit {
   }
 
   get numberOfEditedQuizzes() {
-    return this.quizzes.filter(x => x.name != x.originalName || x.originalQuestionsChecksum != x.questions.map(x=> x.name).join('~'));
+    return this.quizzes
+    .filter(x => 
+      x.name != x.originalName
+      || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~')
+    ).length;
   }
 
+  get numberOfAddedQuizzes() {
+    return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length;
+  }
 
 }
 
