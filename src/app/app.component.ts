@@ -85,11 +85,71 @@ export class AppComponent implements OnInit {
     ];
   }
 
+    jsPromisesOne() {
+    const x = this.quizSvc.getNumberPromise(true);
+    console.log(x); // ? ? ? 
+
+    x.then(
+      n => {
+        console.log(n); // ? ? ? 
+
+        const y = this.quizSvc.getNumberPromise(false);
+        console.log(y); // ? ? ?
+
+        y.then(x => console.log(x)).catch(x => console.log(x));
+      }
+    ).catch(
+      e => {
+        console.log(".catch()");
+        console.log(e);
+      }
+    );
+  }
+
+  async jsPromisesTwo() {
+    // async/await...
+    try {
+      const x = await this.quizSvc.getNumberPromise(true);
+      console.log(x); // ? ? ?
+
+      const y = await this.quizSvc.getNumberPromise(true);
+      console.log(y);
+    }
+
+    catch(error) {
+      console.log(error);
+    }
+  }
+
+  async jsPromisesThree() {
+    // async/await...
+    try {
+      const x = this.quizSvc.getNumberPromise(true);
+      console.log(x); // ? ? ?
+
+      const y = this.quizSvc.getNumberPromise(true);
+      console.log(y);
+
+      const results = await Promise.all([x, y]);
+      //const results = await Promise.race([x, y]);
+      console.log(results); // ? ? ? 
+    }
+
+    catch(error) {
+      console.log(error);
+    }
+  }  
+
+
   removeQuestion(q) {
     this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x !== q);
   }
   get numberOfDeletedQuizzes() {
     return this.quizzes.filter(x=> x.markedForDelete).length;
+  }
+
+  get numberOfEditedQuizzes() {
+    return this.quizzes.filter(x => x.name != x.originalName).length;
   }
 }
 

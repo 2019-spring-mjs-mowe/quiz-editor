@@ -39,6 +39,13 @@
               >
                 - {{ numberOfDeletedQuizzes }}
               </span>
+              <span
+              *ngIf="numberOfEditedQuizzes > 0"
+              class="badge badge-light ml-2"  
+            >
+              * {{ numberOfEditedQuizzes }}
+            </span>
+
 
             </button>
             <button class="btn btn-link">Cancel</button>
