@@ -7,7 +7,7 @@
   <div class="row" *ngIf="!errorCallingRestEndpoint">
     <div class="col-md-4">
       <br>
-      <button class="btn btn-outline-primary" (click)="addNewQuiz()">Add New Quiz</button>
+      <button class="btn btn-outline-success" (click)="addNewQuiz()">Add New Quiz</button>
       <button class="btn btn-link btn-sm" (click)="jsPromisesOne()">JS Promises 1</button>
       <button class="btn btn-link btn-sm" (click)="jsPromisesTwo()">2</button>
       <button class="btn btn-link btn-sm" (click)="jsPromisesThree()">3</button>
@@ -23,18 +23,36 @@
           [style.text-decoration]="q.markedForDelete ? 'line-through' : 'inherit'"  
         >
             {{ q.name }}
-            <span 
-              class="badge badge-secondary"
-              [class.bg-danger]="q.questions.length === 0">
-                {{ q.questions.length }}
-            </span>
+            <small> 
+                {{ q.questions.length }} questions
+            </small>
         </a>
       </div>
     </div>
     <div class="col-md-8">
       <div *ngIf="selectedQuiz">
         <br>
-        <button class="btn btn-outline-success">Save</button>
+        <button class="btn btn-outline-dark">
+          Save Quizzes
+          <span 
+            *ngIf="numberOfAddedQuizzes > 0"
+            class="badge badge-success ml-2"
+          >
+          + {{ numberOfAddedQuizzes }}
+          </span>
+          <span 
+            *ngIf="numberOfDeletedQuizzes > 0"
+            class="badge badge-danger ml-2"
+          >
+          - {{ numberOfDeletedQuizzes }}
+          </span>
+          <span 
+            *ngIf="numberOfEditedQuizzes > 0"
+            class="badge badge-light ml-2"
+          >
+          * {{ numberOfEditedQuizzes }}
+          </span>
+        </button>
         <button class="btn btn-link">Cancel</button>
         <br>
         <br>
@@ -50,7 +68,7 @@
           <div class="card-header">Questions</div>
           <div class="card-body">
             <button 
-              class="btn btn-outline-primary"
+              class="btn btn-outline-success"
               (click)="addNewQuestion()"
             >
               Add New Question
