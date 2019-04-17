@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
           name: x.name
           , originalName: x.name
           , questions: x.questions
-          , originalQuestionsChecksum: x.questions(x => x.name).join('~')
+          , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
           , markedForDelete: false
         }));
       }
@@ -86,42 +86,17 @@ export class AppComponent implements OnInit {
     this.selectedQuiz = newQuiz;
   }
 
-  confirmingDelete = false;
-  deleteButtonText = "Delete This Quiz";
-
-  deleteQuiz() {
-
-    if (!this.confirmingDelete) {
-      this.confirmingDelete = true;
-      this.deleteButtonText = "Yes, delete this quiz";
-    }
-    else {
-      // Actually delete the quiz
-      this.quizzes = this.quizzes.filter(x => x !== this.selectedQuiz);
-      this.selectedQuiz = undefined;
-
-      // And get out of confirming delete mode.
-      this.confirmingDelete = false;
-      this.deleteButtonText = "Delete This Quiz";
-    }
-  }
-
-  get numberOfEditedQuizzes() {
-    return this.quizzes
-    .filter(x =>
-      x.name != x.originalName
-      || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~')
-      ).length;
-  }
-
-  get numberOfAddedQuizzes() {
-    return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length;
+  removeQuestion(questionToDelete) {
+    this.selectedQuiz.questions = 
+      this.selectedQuiz.questions.filter(x => x !== questionToDelete);
   }
 
   addNewQuestion() {
     this.selectedQuiz.questions = [
       ...this.selectedQuiz.questions
-      , { name: 'New Untitled Question' }
+      , {
+        name: "New Untitled Question"
+      }
     ];
   }
 
@@ -129,8 +104,16 @@ export class AppComponent implements OnInit {
     return this.quizzes.filter(x => x.markedForDelete).length;
   }
 
-  removeQuestion(q) {
-    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x !== q);
+  get numberOfEditedQuizzes() {
+    return this.quizzes
+    .filter(x => 
+      x.name != x.originalName
+      || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~')
+    ).length;
+  }
+
+  get numberOfAddedQuizzes() {
+    return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length;
   }
 
   jsPromisesOne() {
