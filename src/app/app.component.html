@@ -105,7 +105,14 @@
               </label>
             </div>
           </div>
-        </div>    
+        </div>
+        <br>
+      <div class="card">
+        <div class="card-header">Time</div>
+        <div class="card-body">
+            <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
+        </div>
+      </div>
       </div>
       <div *ngIf="!selectedQuiz">
         <br>

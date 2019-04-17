@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
@@ -25,6 +25,13 @@ export class AppComponent implements OnInit {
   constructor(private quizSvc: QuizService) {
     //console.log(this.quizSvc.getQuizzes());
     //this.quizzes = this.quizSvc.getQuizzes();
+  }
+
+  time = {hour: 13, minute: 30};
+  meridian = true;
+
+  toggleMeridian() {
+    this.meridian = !this.meridian;
   }
 
   errorCallingRestEndpoint = false;
