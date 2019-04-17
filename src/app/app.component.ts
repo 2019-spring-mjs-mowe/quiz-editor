@@ -3,7 +3,9 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
+  originalName: string;
   questions: QuestionDisplay[];
+  originalQuestionsChecksum: string;
   markedForDelete: boolean;
 }
 
@@ -32,6 +34,8 @@ export class AppComponent implements OnInit {
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , questions: x.questions
+          , originalName: x.name
+          , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
           , markedForDelete: false
         }));
       }
@@ -44,8 +48,6 @@ export class AppComponent implements OnInit {
   }
 
   title = 'quiz-editor';
-  
-  myWidth = 250;
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
@@ -54,22 +56,12 @@ export class AppComponent implements OnInit {
     this.selectedQuiz = q;
   }
 
-  get titleColor() {
-    return this.myWidth > 250 ? "pink" : "black";
-  }  
-
-  increaseWidth = () => {
-    this.myWidth *= 1.5;
-  }
-
-  get listBackgroundColorDanger() {
-    return this.myWidth > 250 ? true : false;
-  }
-
   addNewQuiz() {
     let newQuiz = { 
       name: 'New Untitled Quiz'
+      , originalName: 'New Untitled Quiz'
       , questions: []
+      , originalQuestionsChecksum: ''
       , markedForDelete: false
     };
 
@@ -95,29 +87,38 @@ export class AppComponent implements OnInit {
     return this.quizzes.filter( x => x.markedForDelete).length;
   }
 
-  confirmingDelete = false;
-  get deleteButtonText() {
-    return this.confirmingDelete ? "Yes, I want to delete this quiz" : "Delete This Quiz";
-  } 
-
-  deleteQuiz() {
-
-    if (!this.confirmingDelete) {
-      this.confirmingDelete = true;
-    }
-    else {
-      // Actually delete the quiz.
-      this.quizzes = this.quizzes.filter(x => x !== this.selectedQuiz);
-      this.selectedQuiz = undefined;
-
-      // And get out of confirming delete mode.
-      this.confirmingDelete = false;
-    }
+  get numberOfEditedQuizzes() {
+    return this.quizzes
+    .filter(x => 
+      x.name != x.originalName
+      || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~')
+    ).length;
   }
 
-  cancelDelete() {
-    this.confirmingDelete = false;
+  get numberOfAddesQuizzes() {
+    return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length;
   }
+
+
+  // deleteQuiz() {
+
+  //   if (!this.confirmingDelete) {
+  //     this.confirmingDelete = true;
+  //   }
+  //   else {
+  //     // Actually delete the quiz.
+  //     this.quizzes = this.quizzes.filter(x => x !== this.selectedQuiz);
+  //     this.selectedQuiz = undefined;
+
+  //     // And get out of confirming delete mode.
+  //     this.confirmingDelete = false;
+  //   }
+  // }
+
+
+
+
+
 
   jsPromisesOne() {
     const x = this.quizSvc.getNumberPromise(true);

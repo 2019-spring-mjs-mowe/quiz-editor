@@ -32,12 +32,21 @@
     <div class="col-md-8">
       <div *ngIf="selectedQuiz">
         <br>
-        <button class="btn btn-outline-dark">Save
+        <button 
+          class="btn btn-outline-dark">Save Quizzes
           <span *ngIf="numberOfDeletedQuizzes > 0"
             class="badge badge-danger ml-2">
             - {{ numberOfDeletedQuizzes }}
           </span>
-        </button>
+          <span *ngIf="numberOfEditedQuizzes > 0"
+            class="badge badge-light ml-2">
+            * {{ numberOfEditedQuizzes }}
+          </span>
+          <span *ngIf="numberOfAddesQuizzes > 0"
+            class="badge badge-success ml-2">
+            * {{ numberOfAddesQuizzes }}
+            </span>
+          </button>
         <button class="btn btn-link">Cancel</button>
         <br>
         <br>
@@ -54,6 +63,9 @@
           <div class="card-body">
             <button 
               class="btn btn-outline-primary"
+              placement="right"
+              triggers="mouseenter:mouseleave"
+              ngbPopover="Click here to add new questions to the selected quiz."
               (click)="addNewQuestion()"
             >
               Add New Question
