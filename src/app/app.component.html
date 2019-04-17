@@ -74,23 +74,20 @@
         <div class="card">
           <div class="card-header">Other</div>
           <div class="card-body">
-            <button 
-              class="btn btn-link"
-              *ngIf="confirmingDelete"
-              (click)="cancelDelete()"
-              style="width: 145px;"
-            >
-              Cancel
-            </button>
-            &nbsp;
-            <button 
-              class="btn"
-              [class.btn-outline-danger]="!confirmingDelete"
-              [class.btn-danger]="confirmingDelete"
-              (click)="deleteQuiz()"
-            >
-              {{ deleteButtonText }}
-            </button>
+              <form class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd"
+                             name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-success" (click)="d.toggle()" type="button">Select</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                
+                <hr/>
+                <pre>Model: {{ model | json }}</pre>
           </div>
         </div>    
       </div>

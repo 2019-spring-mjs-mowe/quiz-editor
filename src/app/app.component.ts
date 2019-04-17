@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
     //this.quizzes = this.quizSvc.getQuizzes();
   }
 
+  model;
+
   errorCallingRestEndpoint = false;
 
   ngOnInit() {
