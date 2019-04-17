@@ -7,6 +7,9 @@ interface QuizDisplay {
   numberOfQuestions: number;
   questions: QuestionDisplay[];
   pendingDelete: boolean;
+  pendingUpdate: boolean;
+  originalName: string;
+  originalQuestionsChecksum: string;
 }
 
 interface QuestionDisplay {
@@ -28,7 +31,10 @@ export class AppComponent implements OnInit {
         name: x.name,
         numberOfQuestions: x.numberQuestions,
         questions: x.questions,
-        pendingDelete: false
+        pendingDelete: false,
+        pendingUpdate: false,
+        originalName: 'Untitled Quiz',
+        originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
       }));
       // console.log(data);
     }, error => {
@@ -47,6 +53,21 @@ export class AppComponent implements OnInit {
     return this.confirmRemove ? "Yes, remove quiz" : "Remove quiz";
   }
 
+  get numberOfPendingDeletions() {
+    return this.quizzes.filter(x => x.pendingDelete).length;
+  }
+
+  get numberOfPendingUpdates() {
+    return this.quizzes.filter(x => {
+      x.originalName != x.name
+      || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~');
+    }).length;
+  }
+
+  get numberOfAddedQuizzes() {
+    return this.quizzes.filter(x => x.originalName == 'Untitled Quiz').length;
+  }
+
   constructor(private quizSvc: QuizService) {
     // this.quizzes = this.quizSvc.getQuizzes();
   }
@@ -60,7 +81,10 @@ export class AppComponent implements OnInit {
       name: 'Untitled Quiz',
       numberOfQuestions: 0,
       questions: [],
-      pendingDelete: false
+      pendingDelete: false,
+      pendingUpdate: true,
+      originalName: 'Untitled Quiz',
+      originalQuestionsChecksum: ''
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
