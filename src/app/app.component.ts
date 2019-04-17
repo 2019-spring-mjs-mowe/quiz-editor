@@ -49,6 +49,13 @@ export class AppComponent implements OnInit {
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
 
+  calculateProgress() {
+    let progress = this.selectedQuiz.questions.filter(x => x.name !== "New Untitled Question").length / this.selectedQuiz.questions.length;
+    progress = Math.round(progress * 100);
+
+    return progress;
+  }
+
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
   }
