@@ -92,28 +92,8 @@ export class AppComponent implements OnInit {
     ];
   }
 
-  confirmingDelete = false;
-  get deleteButtonText() {
-    return this.confirmingDelete ? "Yes, I want to delete this quiz" : "Delete This Quiz";
-  } 
-
-  deleteQuiz() {
-
-    if (!this.confirmingDelete) {
-      this.confirmingDelete = true;
-    }
-    else {
-      // Actually delete the quiz.
-      this.quizzes = this.quizzes.filter(x => x !== this.selectedQuiz);
-      this.selectedQuiz = undefined;
-
-      // And get out of confirming delete mode.
-      this.confirmingDelete = false;
-    }
-  }
-
-  cancelDelete() {
-    this.confirmingDelete = false;
+  get numberOfDeletedQuizzes() {
+    return this.quizzes.filter(x => x.markedForDelete).length;
   }
 
   jsPromisesOne() {
