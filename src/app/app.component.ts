@@ -91,6 +91,10 @@ export class AppComponent implements OnInit {
     ];
   }
 
+  get numberOfDeletedQuizzes() {
+    return this.quizzes.filter( x => x.markedForDelete).length;
+  }
+
   confirmingDelete = false;
   get deleteButtonText() {
     return this.confirmingDelete ? "Yes, I want to delete this quiz" : "Delete This Quiz";
