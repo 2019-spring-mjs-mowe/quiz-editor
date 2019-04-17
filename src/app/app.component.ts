@@ -3,11 +3,14 @@ import { QuizService } from './quiz.service';
 
 interface QuizDisplay {
   name: string;
+  originalName: string;
   questions: QuestionDisplay[];
+  originalQuestionsChecksum: string;
   markedForDelete: boolean;
 }
 
 interface QuestionDisplay {
+ 
   name: string;
 }
 
@@ -31,8 +34,10 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
+          , originalName: x.name
           , questions: x.questions
           , markedForDelete: false
+          , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
         }));
       }
 
@@ -69,9 +74,11 @@ export class AppComponent implements OnInit {
   addNewQuiz() {
 
     let newQuiz = { 
-      name: 'New Untitled Quiz'
+      name: 'New Untitled Quiz'    
       , questions: []
+      , originalName: 'New Untitled Quiz'
       , markedForDelete: false
+      , originalQuestionsChecksum: ''
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
@@ -90,6 +97,17 @@ export class AppComponent implements OnInit {
         name: "New Untitled Question"
       }
     ];
+  }
+
+  get numberOfDeletedQuizzes() {
+    return this.quizzes.filter(x => x.markedForDelete).length;
+  }
+
+  get numberOfEditedQuizzes() {
+    return this.quizzes.filter(
+      x => x.name != x.originalName
+      || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~')
+      ).length;
   }
 
 
