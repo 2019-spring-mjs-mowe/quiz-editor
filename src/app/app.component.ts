@@ -112,6 +112,10 @@ export class AppComponent implements OnInit {
     ).length;
   }
 
+  get numberOfAddedQuizzes() {
+    return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length
+  }
+
   jsPromisesOne() {
     const x = this.quizSvc.getNumberPromise(true);
     console.log(x); // ? ? ? 
