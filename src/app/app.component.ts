@@ -4,6 +4,7 @@ import { QuizService } from './quiz.service';
 interface QuizDisplay {
   name: string;
   questions: QuestionDisplay[];
+  markedForDelete: boolean;
 }
 
 interface QuestionDisplay {
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit {
         this.quizzes = (<any[]> data).map(x=> ({
           name: x.name
           , questions: x.questions
+          , markedForDelete: false
         }));
       }
       , (error) => {
@@ -65,6 +67,7 @@ export class AppComponent implements OnInit {
       name: 'New Untitled Quiz'
       , numberOfQuestions: 0
       , questions: []
+      , markedForDelete: true
     }
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
@@ -81,29 +84,6 @@ export class AppComponent implements OnInit {
 
   removeQuestion(q) {
     this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x !== q);
-  }
-  confirmingDelete = false;
-  get deleteButtonText() {
-    return this.confirmingDelete ? "Yes, I want to delete this quiz" : "Delete This Quiz";
-  } 
-
-  deleteQuiz() {
-
-    if (!this.confirmingDelete) {
-      this.confirmingDelete = true;
-    }
-    else {
-      // Actually delete the quiz.
-      this.quizzes = this.quizzes.filter(x => x !== this.selectedQuiz);
-      this.selectedQuiz = undefined;
-
-      // And get out of confirming delete mode.
-      this.confirmingDelete = false;
-    }
-  }
-
-  cancelDelete() {
-    this.confirmingDelete = false;
   }
 
 }
