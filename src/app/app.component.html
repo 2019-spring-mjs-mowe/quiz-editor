@@ -39,8 +39,13 @@
                 <div class="card">
                     <div class="card-header">General</div>
                     <div class="card-body">
-                        <span class="">Quiz name</span>
+                        <span>Quiz name</span>
                         <input type="text" [(ngModel)]="selectedQuiz.name" class="form-control my-3">
+                        <div class="form-group">
+                            <span>Difficulty rating</span>
+                            <br>
+                            <ngb-rating [(rate)]="currentDifficulty" max="5" style="font-size: 30px;"></ngb-rating>
+                        </div>
                     </div>
                 </div>
                 <br>

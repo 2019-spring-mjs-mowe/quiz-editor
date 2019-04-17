@@ -6,6 +6,7 @@ interface QuizDisplay {
   name: string;
   numberOfQuestions: number;
   questions: QuestionDisplay[];
+  difficulty: number;
 }
 
 interface QuestionDisplay {
@@ -23,7 +24,12 @@ export class AppComponent implements OnInit {
     // throw new Error("Method not implemented.");
     this.quizSvc.getQuizzes().subscribe(
     data => {
-      this.quizzes = (<QuizDisplay[]> data).map(x => ({name: x.name, numberOfQuestions: x.numberQuestions, questions: x.questions}));
+      this.quizzes = (<QuizDisplay[]> data).map(x => ({
+        name: x.name,
+        numberOfQuestions: x.numberQuestions,
+        questions: x.questions,
+        difficulty: x.difficulty
+      }));
       // console.log(data);
     }, error => {
       console.log(error);
@@ -36,6 +42,7 @@ export class AppComponent implements OnInit {
   selectedQuiz: QuizDisplay = undefined;
   errorDuringCall = false;
   confirmRemove = false;
+  currentDifficulty = 0;
   
   get removeQuizText() {
     return this.confirmRemove ? "Yes, remove quiz" : "Remove quiz";
@@ -50,7 +57,12 @@ export class AppComponent implements OnInit {
   }
 
   addNewQuiz() {
-    let newQuiz = { name: 'Untitled Quiz', numberOfQuestions: 0, questions: [] };
+    let newQuiz = {
+      name: 'Untitled Quiz',
+      numberOfQuestions: 0,
+      questions: [],
+      difficulty: 3
+    };
 
     this.quizzes = [...this.quizzes, newQuiz];
     this.selectedQuiz = newQuiz;
