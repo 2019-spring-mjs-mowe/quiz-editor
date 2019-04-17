@@ -5,6 +5,7 @@ interface QuizDisplay {
   name: string;
   originalName: string;
   questions: QuestionDisplay[];
+  originalQuestionsChecksum: string;
   markedForDelete: boolean;
 }
 
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
           name: x.name
           , originalName: x.name
           , questions: x.questions
+          , originalQuestionsChecksum: x.questions(x=> x.name).join('~')
           , markedForDelete: false
         }));
       }
