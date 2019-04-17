@@ -4,6 +4,7 @@ import { QuizService } from './quiz.service';
 interface QuizDisplay {
   name: string;
   questions: QuestionDisplay[];
+  markedForDelete: boolean;
 }
 
 interface QuestionDisplay {
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
         this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , questions: x.questions
+          , markedForDelete: false
         }));
       }
 
@@ -69,6 +71,7 @@ export class AppComponent implements OnInit {
     let newQuiz = { 
       name: 'New Untitled Quiz'
       , questions: []
+      , markedForDelete: false
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
@@ -87,30 +90,6 @@ export class AppComponent implements OnInit {
         name: "New Untitled Question"
       }
     ];
-  }
-
-  confirmingDelete = false;
-  get deleteButtonText() {
-    return this.confirmingDelete ? "Yes, I want to delete this quiz" : "Delete This Quiz";
-  } 
-
-  deleteQuiz() {
-
-    if (!this.confirmingDelete) {
-      this.confirmingDelete = true;
-    }
-    else {
-      // Actually delete the quiz.
-      this.quizzes = this.quizzes.filter(x => x !== this.selectedQuiz);
-      this.selectedQuiz = undefined;
-
-      // And get out of confirming delete mode.
-      this.confirmingDelete = false;
-    }
-  }
-
-  cancelDelete() {
-    this.confirmingDelete = false;
   }
 
   jsPromisesOne() {
