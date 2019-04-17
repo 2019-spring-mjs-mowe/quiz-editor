@@ -92,6 +92,10 @@ export class AppComponent implements OnInit {
     ];
   }
 
+  get numberOfDeletedQuizzes() {
+    return this.quizzes.filter(x => x.markedForDelete).length;
+  }
+
   jsPromisesOne() {
     const x = this.quizSvc.getNumberPromise(true);
     console.log(x); // ? ? ? 

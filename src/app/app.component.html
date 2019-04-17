@@ -23,18 +23,25 @@
           [style.text-decoration]="q.markedForDelete ? 'line-through' : 'inherit'"
           >
             {{ q.name }}
-            <span 
-              class="badge badge-secondary"
-              [class.bg-danger]="q.questions.length === 0">
-                {{ q.questions.length }}
-            </span>
+            <small>
+                {{ q.questions.length }} questions
+            </small>
         </a>
       </div>
     </div>
     <div class="col-md-8">
       <div *ngIf="selectedQuiz">
         <br>
-        <button class="btn btn-outline-success">Save</button>
+        <button 
+          class="btn btn-outline-dark">
+          Save Quizzes
+          <span
+            *ngIf="numberOfDeletedQuizzes > 0"
+            class="badge badge-danger ml-2"
+            >
+            - {{ numberOfDeletedQuizzes}}
+          </span>
+        </button>
         <button class="btn btn-link">Cancel</button>
         <br>
         <br>
