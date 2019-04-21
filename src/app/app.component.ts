@@ -5,6 +5,7 @@ interface QuizDisplay {
   name: string;
   questions: QuestionDisplay[];
   numberOfQuestions: number;
+  markForDelete: boolean
 }
 
 interface QuestionDisplay {
