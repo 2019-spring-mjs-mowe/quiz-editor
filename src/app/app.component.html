@@ -34,29 +34,32 @@
         (@detailsFromLeft.done)="detailsFromLeftAnimationComplete()">
       <div *ngIf="selectedQuiz">
         <br>
-        <button 
-          class="btn btn-outline-dark">
-          Save Quizzes
-          <span 
-            *ngIf="numberOfAddedQuizzes > 0"
-            class="badge badge-success ml-2"
-          >
-          + {{ numberOfAddedQuizzes}}
-          </span>
-          <span 
-            *ngIf="numberOfDeletedQuizzes > 0"
-            class="badge badge-danger ml-2"
-          >
-          - {{ numberOfDeletedQuizzes}}
-          </span>          
-          <span 
-            *ngIf="numberOfEditedQuizzes > 0"
-            class="badge badge-light ml-2"
-          >
-          * {{ numberOfEditedQuizzes}}
-          </span>
-        </button>
-        <button class="btn btn-link">Cancel</button>
+        <div>
+            <button
+            [@pulseSaveCancelButtons]="numberOfAddedQuizzes + numberOfDeletedQuizzes + numberOfEditedQuizzes > 0 ? 'somethingToSave' : 'nothingToSave'"
+            class="btn btn-outline-dark">
+            Save Quizzes
+            <span 
+                *ngIf="numberOfAddedQuizzes > 0"
+                class="badge badge-success ml-2"
+            >
+            + {{ numberOfAddedQuizzes}}
+            </span>
+            <span 
+                *ngIf="numberOfDeletedQuizzes > 0"
+                class="badge badge-danger ml-2"
+            >
+            - {{ numberOfDeletedQuizzes}}
+            </span>          
+            <span 
+                *ngIf="numberOfEditedQuizzes > 0"
+                class="badge badge-light ml-2"
+            >
+            * {{ numberOfEditedQuizzes}}
+            </span>
+            </button>
+            <button class="btn btn-link">Cancel</button>
+        </div>
         <br>
         <br>
         <div class="card">
