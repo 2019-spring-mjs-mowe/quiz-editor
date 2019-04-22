@@ -57,23 +57,7 @@ export class AppComponent implements OnInit {
   errorCallingRestEndpoint = false;
 
   ngOnInit() {
-    this.quizSvc.getQuizzes().subscribe(
-      (data) => {
-        console.log(data);
-        this.quizzes = (<any[]> data).map(x => ({
-          name: x.name
-          , originalName: x.name
-          , questions: x.questions
-          , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
-          , markedForDelete: false
-        }));
-      }
-
-      , (error) => {
-        console.log(error);
-        this.errorCallingRestEndpoint = true;
-      }
-    );
+    this.loadQuizzes();
   }
 
   title = 'quiz-editor';
@@ -82,6 +66,22 @@ export class AppComponent implements OnInit {
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
+
+  private loadQuizzes() {
+    this.quizSvc.getQuizzes().subscribe((data) => {
+      console.log(data);
+      this.quizzes = (<any[]>data).map(x => ({
+        name: x.name,
+        originalName: x.name,
+        questions: x.questions,
+        originalQuestionsChecksum: x.questions.map(x => x.name).join('~'),
+        markedForDelete: false
+      }));
+    }, (error) => {
+      console.log(error);
+      this.errorCallingRestEndpoint = true;
+    });
+  }
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
@@ -162,6 +162,11 @@ export class AppComponent implements OnInit {
       success => console.log(success)
       , failure => console.log(failure)
     );
+  }
+
+  cancelChanges() {
+    this.loadQuizzes();
+    this.setSelectedQuiz(undefined);
   }
 
   jsPromisesOne() {
