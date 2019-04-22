@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from './quiz.service';
+import { trigger
+  , transition
+  , animate
+  , keyframes
+  , style } from '@angular/animations'
 
 interface QuizDisplay {
   name: string;
@@ -18,7 +23,29 @@ interface QuestionDisplay {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('detailsFromLeft', [
+      transition('leftPosition => finalPosition', [
+        animate('300ms', keyframes([
+          style({ left: '-30px', offset: 0.0 }),
+          style({ left: '-20px', offset: 0.25 }),
+          style({ left: '-10px', offset: 0.5 }),
+          style({ left: '-5px', offset: 0.75 }),
+          style({ left: '0px', offset: 1.0 })
+        ]))
+      ]),
+    ]),
+    trigger('pulseSaveCancelButtons', [
+      transition('nothingToSave => somethingToSave', [
+        animate('400ms', keyframes([
+          style({ transform: 'scale(1.0)', 'transform-origin': 'top left', offset: 0.0 }),
+          style({ transform: 'scale(1.2)', 'transform-origin': 'top left', offset: 0.5 }),
+          style({ transform: 'scale(1.0)', 'transform-origin': 'top left', offset: 1.0 })
+        ]))
+      ])
+    ])
+  ]
 })
 export class AppComponent implements OnInit {
 
@@ -58,6 +85,7 @@ export class AppComponent implements OnInit {
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
+    this.detailsAnimationState = 'finalPosition';
   }
 
   get titleColor() {
@@ -83,7 +111,7 @@ export class AppComponent implements OnInit {
     };
 
     this.quizzes = [...this.quizzes, newQuiz];
-    this.selectedQuiz = newQuiz;
+    this.setSelectedQuiz(newQuiz);
   }
 
   removeQuestion(questionToDelete) {
@@ -114,6 +142,12 @@ export class AppComponent implements OnInit {
 
   get numberOfAddedQuizzes() {
     return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length;
+  }
+
+  detailsAnimationState = "leftPosition";
+  
+  detailsFromLeftAnimationComplete() {
+    this.detailsAnimationState = 'leftPosition';
   }
 
   jsPromisesOne() {
