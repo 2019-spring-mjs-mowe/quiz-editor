@@ -132,12 +132,16 @@ export class AppComponent implements OnInit {
     return this.quizzes.filter(x => x.markedForDelete).length;
   }
 
-  get numberOfEditedQuizzes() {
+  getEditedQuizzes() {
     return this.quizzes
-    .filter(x => 
+      .filter(x => 
       x.name != x.originalName
       || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~')
-    ).length;
+    );
+  }
+
+  get numberOfEditedQuizzes() {
+    return this.getEditedQuizzes().length;
   }
 
   get numberOfAddedQuizzes() {
@@ -148,6 +152,16 @@ export class AppComponent implements OnInit {
   
   detailsFromLeftAnimationComplete() {
     this.detailsAnimationState = 'leftPosition';
+  }
+
+  saveBatchEdits() {
+
+    const editedQuizzes = this.getEditedQuizzes().map(x => ({ foo: x.name }));
+
+    this.quizSvc.saveQuizzes(editedQuizzes, []).subscribe(
+      success => console.log(success)
+      , failure => console.log(failure)
+    );
   }
 
   jsPromisesOne() {
