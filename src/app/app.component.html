@@ -33,32 +33,39 @@
           [@detailsFromLeft]="detailsAnimationState"
           (@detailsFromLeft.done)="detailsFromLeftAnimationComplete()">
       <div *ngIf="selectedQuiz">
-        <br>
-        <button 
-          class="btn btn-outline-dark">
-          Save Quizzes
-          <span 
-            *ngIf="numberOfAddedQuizzes > 0"
-            class="badge badge-success ml-2"
-          >
-          + {{ numberOfAddedQuizzes}}
-          </span>
-          <span 
-            *ngIf="numberOfDeletedQuizzes > 0"
-            class="badge badge-danger ml-2"
-          >
-          - {{ numberOfDeletedQuizzes}}
-          </span>          
-          <span 
-            *ngIf="numberOfEditedQuizzes > 0"
-            class="badge badge-light ml-2"
-          >
-          * {{ numberOfEditedQuizzes}}
-          </span>
-        </button>
-        <button class="btn btn-link">Cancel</button>
-        <br>
-        <br>
+        <br/>
+        <div
+          [@pulseSaveCancelButtons]="numberOfAddedQuizzes + numberOfDeletedQuizzes + numberOfEditedQuizzes > 0 ? 'somethingToSave' : 'nothingToSave'"      
+        >
+            <button 
+              class="btn"
+              [class.btn-outline-dark]="numberOfAddedQuizzes + numberOfDeletedQuizzes + numberOfEditedQuizzes === 0"
+              [class.btn-dark]="numberOfAddedQuizzes + numberOfDeletedQuizzes + numberOfEditedQuizzes > 0">
+
+              Save Quizzes
+              <span 
+                *ngIf="numberOfAddedQuizzes > 0"
+                class="badge badge-success ml-2"
+              >
+              + {{ numberOfAddedQuizzes}}
+              </span>
+              <span 
+                *ngIf="numberOfDeletedQuizzes > 0"
+                class="badge badge-danger ml-2"
+              >
+              - {{ numberOfDeletedQuizzes}}
+              </span>          
+              <span 
+                *ngIf="numberOfEditedQuizzes > 0"
+                class="badge badge-light ml-2"
+              >
+              * {{ numberOfEditedQuizzes}}
+              </span>
+            </button>
+            <button class="btn btn-link">Cancel</button>
+            <br>
+            <br>
+          </div>
         <div class="card">
           <div class="card-header">General</div>
           <div class="card-body">
