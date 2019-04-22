@@ -8,12 +8,13 @@ import {
   , style
 } from '@angular/animations';
 
-
 interface QuizDisplay {
   name: string;
   originalName: string;
+
   questions: QuestionDisplay[];
   originalQuestionsChecksum: string;
+
   markedForDelete: boolean;
 }
 
@@ -24,11 +25,11 @@ interface QuestionDisplay {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'] ,
+  styleUrls: ['./app.component.css'],
   animations: [
     trigger('detailsFromLeft', [
       transition('leftPosition => finalPosition', [
-        animate('300ms', keyframes([
+        animate('250ms', keyframes([
           style({ left: '-30px', offset: 0.0 }),
           style({ left: '-20px', offset: 0.25 }),
           style({ left: '-10px', offset: 0.5 }),
@@ -46,7 +47,7 @@ interface QuestionDisplay {
         ]))
       ])
     ])
-  ]
+  ]  
 })
 export class AppComponent implements OnInit {
 
@@ -54,19 +55,22 @@ export class AppComponent implements OnInit {
     //console.log(this.quizSvc.getQuizzes());
     //this.quizzes = this.quizSvc.getQuizzes();
   }
+
   errorCallingRestEndpoint = false;
+
   ngOnInit() {
     this.quizSvc.getQuizzes().subscribe(
       (data) => {
         console.log(data);
-        this.quizzes = (<any[]> data).map(x=> ({
+        this.quizzes = (<any[]> data).map(x => ({
           name: x.name
           , originalName: x.name
           , questions: x.questions
-          , originalQuestionsChecksum: x.questions.map(x=> x.name).join('~')
+          , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
           , markedForDelete: false
         }));
       }
+
       , (error) => {
         console.log(error);
         this.errorCallingRestEndpoint = true;
@@ -97,89 +101,37 @@ export class AppComponent implements OnInit {
   get listBackgroundColorDanger() {
     return this.myWidth > 250 ? true : false;
   }
+
   addNewQuiz() {
-    let newQuiz = {
+
+    let newQuiz = { 
       name: 'New Untitled Quiz'
       , originalName: 'New Untitled Quiz'
-      , numberOfQuestions: 0
       , questions: []
       , originalQuestionsChecksum: ''
-      , markedForDelete: true
-    }
+      , markedForDelete: false
+    };
+
     this.quizzes = [...this.quizzes, newQuiz];
     this.setSelectedQuiz(newQuiz);
   }
 
-  questions: QuestionDisplay[] = [];
+  removeQuestion(questionToDelete) {
+    this.selectedQuiz.questions = 
+      this.selectedQuiz.questions.filter(x => x !== questionToDelete);
+  }
 
   addNewQuestion() {
-    this.selectedQuiz.questions= [
+    this.selectedQuiz.questions = [
       ...this.selectedQuiz.questions
-      , { name: "new Question" }
+      , {
+        name: "New Untitled Question"
+      }
     ];
   }
 
-  //   jsPromisesOne() {
-  //   const x = this.quizSvc.getNumberPromise(true);
-  //   console.log(x); // ? ? ? 
-
-  //   x.then(
-  //     n => {
-  //       console.log(n); // ? ? ? 
-
-  //       const y = this.quizSvc.getNumberPromise(false);
-  //       console.log(y); // ? ? ?
-
-  //       y.then(x => console.log(x)).catch(x => console.log(x));
-  //     }
-  //   ).catch(
-  //     e => {
-  //       console.log(".catch()");
-  //       console.log(e);
-  //     }
-  //   );
-  // }
-
-  // async jsPromisesTwo() {
-  //   // async/await...
-  //   try {
-  //     const x = await this.quizSvc.getNumberPromise(true);
-  //     console.log(x); // ? ? ?
-
-  //     const y = await this.quizSvc.getNumberPromise(true);
-  //     console.log(y);
-  //   }
-
-  //   catch(error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // async jsPromisesThree() {
-  //   // async/await...
-  //   try {
-  //     const x = this.quizSvc.getNumberPromise(true);
-  //     console.log(x); // ? ? ?
-
-  //     const y = this.quizSvc.getNumberPromise(true);
-  //     console.log(y);
-
-  //     const results = await Promise.all([x, y]);
-  //     //const results = await Promise.race([x, y]);
-  //     console.log(results); // ? ? ? 
-  //   }
-
-  //   catch(error) {
-  //     console.log(error);
-  //   }
-  // }  
-
-
-  removeQuestion(q) {
-    this.selectedQuiz.questions = this.selectedQuiz.questions.filter(x => x !== q);
-  }
   get numberOfDeletedQuizzes() {
-    return this.quizzes.filter(x=> x.markedForDelete).length;
+    return this.quizzes.filter(x => x.markedForDelete).length;
   }
 
   get numberOfEditedQuizzes() {
@@ -194,11 +146,72 @@ export class AppComponent implements OnInit {
     return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length;
   }
 
-  detailsAnimationState = "leftPostition";
+  //
+  //  Animation properties and methods...
+  //
+  detailsAnimationState = "leftPosition";
 
   detailsFromLeftAnimationComplete() {
-    this.detailsAnimationState = 'leftPostition';
+    this.detailsAnimationState = 'leftPosition';
   }
 
-}
 
+  //
+  // Learning promises...
+  //
+
+  jsPromisesOne() {
+    const x = this.quizSvc.getNumberPromise(true);
+    console.log(x); // ? ? ? 
+
+    x.then(
+      n => {
+        console.log(n); // ? ? ? 
+
+        const y = this.quizSvc.getNumberPromise(false);
+        console.log(y); // ? ? ?
+
+        y.then(x => console.log(x)).catch(x => console.log(x));
+      }
+    ).catch(
+      e => {
+        console.log(".catch()");
+        console.log(e);
+      }
+    );
+  }
+
+  async jsPromisesTwo() {
+    // async/await...
+    try {
+      const x = await this.quizSvc.getNumberPromise(true);
+      console.log(x); // ? ? ?
+
+      const y = await this.quizSvc.getNumberPromise(true);
+      console.log(y);
+    }
+
+    catch(error) {
+      console.log(error);
+    }
+  }
+
+  async jsPromisesThree() {
+    // async/await...
+    try {
+      const x = this.quizSvc.getNumberPromise(true);
+      console.log(x); // ? ? ?
+
+      const y = this.quizSvc.getNumberPromise(true);
+      console.log(y);
+
+      const results = await Promise.all([x, y]);
+      //const results = await Promise.race([x, y]);
+      console.log(results); // ? ? ? 
+    }
+
+    catch(error) {
+      console.log(error);
+    }
+  }  
+}
