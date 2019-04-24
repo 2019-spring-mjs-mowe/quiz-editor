@@ -37,7 +37,8 @@
         <div>
             <button
             [@pulseSaveCancelButtons]="numberOfAddedQuizzes + numberOfDeletedQuizzes + numberOfEditedQuizzes > 0 ? 'somethingToSave' : 'nothingToSave'"
-            class="btn btn-outline-dark">
+            class="btn btn-outline-dark"
+            (click)="saveQuizzes()">
             Save Quizzes
             <span 
                 *ngIf="numberOfDeletedQuizzes > 0"

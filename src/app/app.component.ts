@@ -135,18 +135,22 @@ export class AppComponent implements OnInit {
   }
 
   get numberOfEditedQuizzes() {
-    return this.quizzes
-      .filter(x => 
-        (!x.markedForDelete && x.originalName == 'New Untitled Quiz') &&
-        (x.name != x.originalName
-        || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~'))
-      ).length;
+    return this.getEditedQuizzes().length;
   }
 
   get numberOfAddedQuizzes() {
       return this.quizzes.filter(x => 
         !x.markedForDelete &&
         x.originalName === 'New Untitled Quiz').length;
+  }
+
+  getEditedQuizzes() {
+    return this.quizzes
+      .filter(x => 
+        (!x.markedForDelete && x.originalName == 'New Untitled Quiz') &&
+        (x.name != x.originalName
+        || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~'))
+      );
   }
 
   detailsAnimationState = 'leftPosition';
@@ -158,5 +162,21 @@ export class AppComponent implements OnInit {
   cancelEdit() {
     this.getQuizzes();
     this.setSelectedQuiz(undefined);
+  }
+
+  saveQuizzes() {
+    let changedQuizzes = 
+      this.getEditedQuizzes()
+      .map(x => ({name: x.name, originalName: x.originalName, questions: x.questions}));
+
+    let addedQuizzes =
+    this.getEditedQuizzes()
+      .map(x => ({quizName: x.name, quizQuestions: x.questions}));
+
+    this.quizSvc.saveQuizzes(changedQuizzes, addedQuizzes).subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.error(error);
+    });
   }
 }
