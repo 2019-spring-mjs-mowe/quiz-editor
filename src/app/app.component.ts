@@ -67,20 +67,30 @@ export class AppComponent implements OnInit {
   myWidth = 250;
 
   quizzes: QuizDisplay[] = [];
+  newQuizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
 
   saveBatchEdits() {
-    const editedQuizzes = this.getEditedQuizzes()
+    let editedQuizzes = this.getEditedQuizzes()
       .map(x => ({
         name: x.name
         , orginalName: x.originalName
         , question: x.questions
       }));
       
-    const addedQuizzes = [];
+    let addedQuizzes =
+    this.getAddedQuizzes()
+      .map(x => (
+        {quizName: x.name,
+        quizQuestions: x.questions
+          .map(x => x.name)}
+      ));
+
+    console.log(this.getAddedQuizzes());
+    console.log(addedQuizzes);
 
     this.quizSvc.saveQuizzes(editedQuizzes, addedQuizzes).subscribe(
-      numberOfEditedQuizzesSaved => console.log(numberOfEditedQuizzesSaved)
+      data => console.log(data)
       , error => console.log(error)
     );
   }
@@ -133,6 +143,7 @@ export class AppComponent implements OnInit {
       , markedForDelete: false
     };
 
+    this.newQuizzes = [...this.newQuizzes, newQuiz];
     this.quizzes = [...this.quizzes, newQuiz];
     this.setSelectedQuiz(newQuiz);
   }
@@ -163,6 +174,10 @@ export class AppComponent implements OnInit {
       );
   }
 
+  getAddedQuizzes() {
+    return this.newQuizzes;
+  }
+
   get numberOfEditedQuizzes() {
     return this.getEditedQuizzes().length;
   }
@@ -183,64 +198,4 @@ export class AppComponent implements OnInit {
   detailsFromLeftAnimationComplete() {
     this.detailsAnimationState = 'leftPosition';
   }
-
-
-  //
-  // Learning promises...
-  //
-
-  jsPromisesOne() {
-    const x = this.quizSvc.getNumberPromise(true);
-    console.log(x); // ? ? ? 
-
-    x.then(
-      n => {
-        console.log(n); // ? ? ? 
-
-        const y = this.quizSvc.getNumberPromise(false);
-        console.log(y); // ? ? ?
-
-        y.then(x => console.log(x)).catch(x => console.log(x));
-      }
-    ).catch(
-      e => {
-        console.log(".catch()");
-        console.log(e);
-      }
-    );
-  }
-
-  async jsPromisesTwo() {
-    // async/await...
-    try {
-      const x = await this.quizSvc.getNumberPromise(true);
-      console.log(x); // ? ? ?
-
-      const y = await this.quizSvc.getNumberPromise(true);
-      console.log(y);
-    }
-
-    catch(error) {
-      console.log(error);
-    }
-  }
-
-  async jsPromisesThree() {
-    // async/await...
-    try {
-      const x = this.quizSvc.getNumberPromise(true);
-      console.log(x); // ? ? ?
-
-      const y = this.quizSvc.getNumberPromise(true);
-      console.log(y);
-
-      const results = await Promise.all([x, y]);
-      //const results = await Promise.race([x, y]);
-      console.log(results); // ? ? ? 
-    }
-
-    catch(error) {
-      console.log(error);
-    }
-  }  
 }
