@@ -46,17 +46,17 @@
           >
             Save Quizzes
             <span 
-              *ngIf="numberOfAddedQuizzes > 0"
-              class="badge badge-success ml-2"
-            >
-            + {{ numberOfAddedQuizzes}}
-            </span>
-            <span 
               *ngIf="numberOfDeletedQuizzes > 0"
               class="badge badge-danger ml-2"
             >
             - {{ numberOfDeletedQuizzes}}
             </span>          
+            <span 
+              *ngIf="numberOfAddedQuizzes > 0"
+              class="badge badge-success ml-2"
+            >
+            + {{ numberOfAddedQuizzes}}
+            </span>
             <span 
               *ngIf="numberOfEditedQuizzes > 0"
               class="badge badge-light ml-2"
