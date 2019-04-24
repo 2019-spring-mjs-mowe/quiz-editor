@@ -40,8 +40,9 @@
             <button 
               class="btn"
               [class.btn-outline-dark]="numberOfAddedQuizzes + numberOfDeletedQuizzes + numberOfEditedQuizzes === 0"
-              [class.btn-dark]="numberOfAddedQuizzes + numberOfDeletedQuizzes + numberOfEditedQuizzes > 0">
-
+              [class.btn-dark]="numberOfAddedQuizzes + numberOfDeletedQuizzes + numberOfEditedQuizzes > 0"
+              (click)="saveBatchEdits()">
+          
               Save Quizzes
               <span 
               *ngIf="numberOfDeletedQuizzes > 0"
