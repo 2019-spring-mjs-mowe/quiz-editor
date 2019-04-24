@@ -59,23 +59,7 @@ export class AppComponent implements OnInit {
   errorCallingRestEndpoint = false;
 
   ngOnInit() {
-    this.quizSvc.getQuizzes().subscribe(
-      (data) => {
-        console.log(data);
-        this.quizzes = (<any[]> data).map(x => ({
-          name: x.name
-          , originalName: x.name
-          , questions: x.questions
-          , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
-          , markedForDelete: false
-        }));
-      }
-
-      , (error) => {
-        console.log(error);
-        this.errorCallingRestEndpoint = true;
-      }
-    );
+    this.loadAllQuizzes();
   }
 
   title = 'quiz-editor';
@@ -84,6 +68,32 @@ export class AppComponent implements OnInit {
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
+
+
+  cancelBatchEdits() {
+    this.loadAllQuizzes();
+    this.setSelectedQuiz(undefined);
+  }
+
+      loadAllQuizzes() {
+        this.quizSvc.getQuizzes().subscribe(
+          (data) => {
+            console.log(data);
+            this.quizzes = (<any[]> data).map(x => ({
+              name: x.name
+              , originalName: x.name
+              , questions: x.questions
+              , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
+              , markedForDelete: false
+            }));
+          }
+
+      , (error) => {
+        console.log(error);
+        this.errorCallingRestEndpoint = true;
+      }
+    );
+  }
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
@@ -136,14 +146,17 @@ export class AppComponent implements OnInit {
 
   get numberOfEditedQuizzes() {
     return this.quizzes
-    .filter(x => 
-      x.name != x.originalName
-      || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~')
+    .filter(x =>
+      (!x.markedForDelete && x.originalName !== 'New Untitled Quiz')
+      && (x.name != x.originalName || x.originalQuestionsChecksum != x.questions.map(x => x.name).join('~'))
     ).length;
   }
 
   get numberOfAddedQuizzes() {
-    return this.quizzes.filter(x => x.originalName === 'New Untitled Quiz').length;
+    return this.quizzes.filter(x =>
+        !x.markedForDelete
+        && x.originalName === 'New Untitled Quiz'
+    ).length;
   }
 
   //
