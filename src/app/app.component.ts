@@ -59,23 +59,7 @@ export class AppComponent implements OnInit {
   errorCallingRestEndpoint = false;
 
   ngOnInit() {
-    this.quizSvc.getQuizzes().subscribe(
-      (data) => {
-        console.log(data);
-        this.quizzes = (<any[]> data).map(x => ({
-          name: x.name
-          , originalName: x.name
-          , questions: x.questions
-          , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
-          , markedForDelete: false
-        }));
-      }
-
-      , (error) => {
-        console.log(error);
-        this.errorCallingRestEndpoint = true;
-      }
-    );
+    this.getQuizzes();
   }
 
   title = 'quiz-editor';
@@ -84,6 +68,22 @@ export class AppComponent implements OnInit {
 
   quizzes: QuizDisplay[] = [];
   selectedQuiz: QuizDisplay = undefined;
+
+  private getQuizzes() {
+    this.quizSvc.getQuizzes().subscribe((data) => {
+      console.log(data);
+      this.quizzes = (<any[]>data).map(x => ({
+        name: x.name,
+        originalName: x.name,
+        questions: x.questions,
+        originalQuestionsChecksum: x.questions.map(x => x.name).join('~'),
+        markedForDelete: false
+      }));
+    }, (error) => {
+      console.log(error);
+      this.errorCallingRestEndpoint = true;
+    });
+  }
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
@@ -153,5 +153,10 @@ export class AppComponent implements OnInit {
 
   detailsFromLeftAnimationComplete() {
     this.detailsAnimationState = 'leftPosition';
+  }
+
+  cancelEdit() {
+    this.getQuizzes();
+    this.setSelectedQuiz(undefined);
   }
 }
