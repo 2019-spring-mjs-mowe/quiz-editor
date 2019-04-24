@@ -165,7 +165,7 @@ export class AppComponent implements OnInit {
     );
   }
   
-  get numberOdEditedQuizzes() {
+  get numberOfEditedQuizzes() {
     return this.getEditedQuizzes().length;
   }
 
