@@ -77,7 +77,10 @@ export class AppComponent implements OnInit {
         , question: x.questions
       }));
       
-    const addedQuizzes = [];
+    const addedQuizzes = this.getAddedQuizzes().map(x =>({quizName: x.name
+    , quizQuestions: x.questions.map(x => x.name)
+    }));
+
     this.quizSvc.saveQuizzes(editedQuizzes, addedQuizzes).subscribe(
       numberOfEditedQuizzesSaved => console.log(numberOfEditedQuizzesSaved)
       , error => console.log(error)
@@ -167,12 +170,18 @@ export class AppComponent implements OnInit {
     return this.getEditedQuizzes().length;
   }
 
-  get numberOfAddedQuizzes() {
+  getAddedQuizzes() {
     return this.quizzes
     .filter(x => 
       !x.markedForDelete
-      && x.originalName === 'New Untitled Quiz').length;
+      && x.originalName === 'New Untitled Quiz'
+    );
   }
+
+    get numberOfAddedQuizzes() {
+      return this.getAddedQuizzes().length;
+    }
+  
 
   //
   //  Animation properties and methods...
