@@ -60,23 +60,7 @@ export class AppComponent implements OnInit {
   errorCallingRestEndpoint = false;
 
   ngOnInit() {
-    this.quizSvc.getQuizzes().subscribe(
-      (data) => {
-        console.log(data);
-        this.quizzes = (<any[]> data).map(x => ({
-          name: x.name
-          , originalName: x.name
-          , questions: x.questions
-          , originalQuestionsChecksum: x.questions.map(x => x.name).join('~')
-          , markedForDelete: false
-        }));
-      }
-
-      , (error) => {
-        console.log(error);
-        this.errorCallingRestEndpoint = true;
-      }
-    );
+    this.loadAllQuizzes();
   }
 
   title = 'quiz-editor';
@@ -87,6 +71,26 @@ export class AppComponent implements OnInit {
   selectedQuiz: QuizDisplay = undefined;
 
 
+  cancelBatchEdits() {
+    this.loadAllQuizzes();
+    this.setSelectedQuiz(undefined);
+  }
+
+  private loadAllQuizzes() {
+    this.quizSvc.getQuizzes().subscribe((data) => {
+      console.log(data);
+      this.quizzes = (<any[]>data).map(x => ({
+        name: x.name,
+        originalName: x.name,
+        questions: x.questions,
+        originalQuestionsChecksum: x.questions.map(x => x.name).join('~'),
+        markedForDelete: false
+      }));
+    }, (error) => {
+      console.log(error);
+      this.errorCallingRestEndpoint = true;
+    });
+  }
 
   setSelectedQuiz(q: QuizDisplay) {
     this.selectedQuiz = q;
